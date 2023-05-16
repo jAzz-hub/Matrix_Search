@@ -1,0 +1,28 @@
+
+Documentação:
+    - README.mb contemplando uma discussão aprofundada da comparação entre caminhamento randômico, BFS e DFS.
+    - Neste documento é importante que se tenha fatores comparativos de velocidade de execução e quantidade de passos para a finalização do labirinto.
+    - Além disso, espera-se de cada equipe uma profunda discussão em forma de texto científico que relate o modelo de funcionamento de cada algoritmo e os motivos que tornam uma das soluções a melhor opção sob uma análise criteriosa da entrada fornecida.
+    - Observe que para isso é preciso realizar várias execuções com mesma entrada, alternar as parametrizações da entra item a item, bem como, avaliar a relação tamanho vs tempo vs espaço. Por fim, una-se com mais três equipes e compare as diferentes implementações, discuta as diferenças e quais os ganhos obtidos e porque esses são produzidos.
+
+
+Como objetivos:
+    1 - Elaborar um algoritmo que realize BFS e um algoritmo que realize DFS que percorra 1 única matriz bem grande.
+    
+    2 - Diante dos diferentes tipos de pesquisa em matriz o algortimo tem as seguintes decisões baseadas nos símbolos:
+    [ ] 2.1 - ? : ponto final, caso chegue aqui a caminhada é interrompida.
+    [ ] 2.2 - * : perde 1 ponto de vida.
+        2.3 - # : não pode caminhar para essa posição.
+        2.4 - 1 : é uma posição válida de caminhada.
+
+        Observações:
+        2.1 - ? : Quando o código for encerrado devemos apresentar um relatório de caminhada.
+        2.2 - * : Ao sofrer dano o personagem deve voltar a casa inicial e reinicar a caminhada diante de novos caminhos.
+        2.3 - # : Apresenta peculiaridades no BFS
+        2.4 - 1 : Pegar ou não itens de valor 1?
+
+        Implemente:
+        2.1 - ? : Cheguei aqui só parar e mostrar um output qualquer.
+        2.2 - * : é transformado em @ ao ser percorrido.
+        2.3 - # ou @ : Ao passar por algum lugar colocar um símbolo @ que representa um caminho percorrido onde não se pode passar de novo.
+        2.4 - 1 : é transformado em @ após ser pego.
