@@ -12,14 +12,14 @@ Como objetivos:
     2 - Diante dos diferentes tipos de pesquisa em matriz o algortimo tem as seguintes decisões baseadas nos símbolos:
     [ ] 2.1 - ? : ponto final, caso chegue aqui a caminhada é interrompida.
     [ ] 2.2 - * : perde 1 ponto de vida.
-        2.3 - # : não pode caminhar para essa posição.
-        2.4 - 1 : é uma posição válida de caminhada.
+    [ ]    2.3 - # : não pode caminhar para essa posição.
+    [ ]    2.4 - 1 : é uma posição válida de caminhada.
 
         Observações:
-        2.1 - ? : Quando o código for encerrado devemos apresentar um relatório de caminhada.
-        2.2 - * : Ao sofrer dano o personagem deve voltar a casa inicial e reinicar a caminhada diante de novos caminhos.
-        2.3 - # : Apresenta peculiaridades no BFS
-        2.4 - 1 : Pegar ou não itens de valor 1?
+    [ ]    2.1 - ? : Quando o código for encerrado devemos apresentar um relatório de caminhada.
+    [ ]    2.2 - * : Ao sofrer dano o personagem deve voltar a casa inicial e reinicar a caminhada diante de novos caminhos.
+    [ ]    2.3 - # : Apresenta peculiaridades no BFS
+    [ ]    2.4 - 1 : Pegar ou não itens de valor 1?
 
         Implemente:
         2.1 - ? : Cheguei aqui só parar e mostrar um output qualquer.

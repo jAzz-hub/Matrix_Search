@@ -1,7 +1,6 @@
 
 #include "Functions.h"
 
-
 #include "Structures.h"
 
 void GenerateMatrix(Matrix *mat){
@@ -11,7 +10,7 @@ void GenerateMatrix(Matrix *mat){
         for(int j=0; j<MAXCOLS; j++){
         	data = rand()%20;
         	if(data <= 10)
-            	mat->m[i][j].val = (1 + rand()%5) + '0'; 
+            	mat->m[i][j].val = '1'; 
             else if ((data > 10) && (data < 16))
             	mat->m[i][j].val = '*';
             else
@@ -62,6 +61,10 @@ int main()
 	GenerateMatrix(&myMatrix);
 	SetMatrixSignature();
 	SaveMatrix(&myMatrix);
+
+	int SizeOfMatrixes = SizeRecon();
+	int HowMuchMatrixes = HowMuchMatrixes();
+	
 
     return 0;
 }
