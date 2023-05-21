@@ -1,59 +1,52 @@
 
 
-// #próximo_passo = verifica se a casa futura é válida;
 
-unsigned short int SizeRecon()
-{
-    unsigned short int ArrayArea = 0;
-    FILE *LocalPointer;
-    LocalPointer = fopen("./dataset/input.data", "r");
-    fscanf(LocalPointer, "%hu", &ArrayArea);
-    fclose(LocalPointer);
-    return ArrayArea;
-}
+#include "FunctionsSignatures.h"
+
 
 /// @brief Lê a primeira linha do arquivo input.data
-/// @return  O número de matrizes a serem lidas nesse arquivo
-unsigned int HowMuchMatrixes()
-{
-    int size;
-    string strNumberOfMatrixes;
-    string FirstLine;
-    FILE *LocalPointer;
-    LocalPointer = fopen("./dataset/input.data", "r");
-    char l2[100];
-    FirstLine = fgets(l2,100,LocalPointer);
-    fclose(LocalPointer);
+/// @return  O número de matrizes que serão lidas e o tamanho destas matrizes
+FILE *openInput(FILE *f, int *size, int *n) {
+  char fileName[] = "dataset/input.data";
 
-    
-    if(FirstLine.at(FirstLine.length()-3)==' ')// Número de matrizes < 10:
-    {
-        strNumberOfMatrixes+=FirstLine.at(FirstLine.length()-2);
-    }
-    else if(FirstLine.at(FirstLine.length()-4)==' ')//Número de matrizes <100:
-    {
-        strNumberOfMatrixes+=FirstLine.at(FirstLine.length()-3);
-        strNumberOfMatrixes+=FirstLine.at(FirstLine.length()-2);
-    }
-    else if(FirstLine.at(FirstLine.length()-5)==' ')//Número de matrizes <1000:
-    {
-        strNumberOfMatrixes+=FirstLine.at(FirstLine.length()-4);
-        strNumberOfMatrixes+=FirstLine.at(FirstLine.length()-3);
-        strNumberOfMatrixes+=FirstLine.at(FirstLine.length()-2);
-    }
 
-    // char AuxChar = (char)strNumberOfMatrixes;
+  f = fopen(fileName, "r");
+  if (f == NULL) {
+    printf("Error ao abrir arquivo\n");
+    exit(1);
+  }
 
-    std::string::size_type sz;
-    unsigned int NumberOfMatrixes = std::stoi(strNumberOfMatrixes,&sz);
-    
-    return NumberOfMatrixes;
+  char buffer[80];
+  fgets(buffer, 80, f);
+  sscanf(buffer, "%d %*d %d", size, n);
+  return f;
 }
 
-// FileScanning()
-// {
-    
-// }
+/// @brief Cria uma matriz NxN de acordo com o parâmetro size
+/// @param size tamanho da matriz
+/// @return retorna uma matriz de tamanho size
+struct tile **allocateMatrix(int size) {
+  struct tile **matrix = malloc(sizeof(struct tile *) * (size*size));
+
+  for (int i = 0; i <= size; i++) {
+    matrix[i] = malloc(sizeof(struct tile) * size);
+  }
+
+  return matrix;
+}
+
+/*
+   
+  Getúlio e Rafael essas linhas abaixo são pseudocódigo, se forem alterar, comuniquem ao grupo 1º pfvr
+
+    Tasks:
+    [X] - Ler o arquivo e armazenar a matriz.
+    [ ] - Verificar casas adjascentes para caminhar.
+    [ ] - Iniciar percurso.
+    [ ] - Iniciar pesquisa em profundidade.
+    [ ] - Adicionar paredes quando esbarrar em obstáculo.
+    [ ] - Emitir relatório quando encontrar a interrogação no meio da matriz.
+*/
 
 // percurso()
 // {
@@ -109,3 +102,96 @@ unsigned int HowMuchMatrixes()
 //     percurso();
     
 // }
+
+/// @brief Mostra toodos os elementos contidos em uma matriz
+/// @param MatrixScoped Matriz alvo
+/// @param size Tamanho da matriz
+void MatrixScanner(tile **MatrixScoped, int size)
+{
+  for(short int scannerRow = 0; scannerRow<size; scannerRow++)
+  {
+    for(short int scannerCol = 0; scannerCol<size;scannerCol++)
+    {
+      printf("%c",MatrixScoped[scannerRow][scannerCol].value);
+    }
+    printf("\n");
+  }
+}
+
+/// @brief Remove os caracteres ` ` e `\n` de uma string.
+/// @param size Ordem da matriz contida no arquivo input.data
+/// @param line Linha que sofrerá modificações.
+void LineCleaner(int size, char *line)
+{
+  char *token;
+  char *odd = " \n";
+  char result[(size*3)-20];
+  result[0] = '\0';
+  
+  token = strtok(line, odd);
+  while (token!=NULL)
+  {
+    
+    strcat(result, token);
+    token = strtok(NULL, odd);
+  
+  }
+  
+  strcpy(line, result);
+}
+
+/// @brief Armazena uma linha lida do arquivo input.data em uma matriz
+/// @param matrix Matriz onde as linhas serão armazenadas
+/// @param size Tamanho da Matriz
+/// @param line Linha lida do arquivo input.data
+/// @param row Número da linha lida, será sempre menor ou igual a size
+void LineRecorder(struct tile ***matrix, int size, char *line, int row)
+{
+  LineCleaner(size, &*line);
+  // printf("%s",line);
+  for(int column = 0; column<size; column++)
+  {
+    (*matrix)[row][column].value = line[column];
+  }
+
+}
+
+/// @brief Armazena conteúdo lido de input.data em uma matriz
+/// @param matrix Matriz que recebe o conteúdo lido
+/// @param size Tamanho da matriz
+void MatrixRecorder(struct tile ***matrix, int size)
+{
+  FILE *dataset = fopen("./dataset/input.data", "r");
+  char *matrixLine;
+  for(unsigned short int i=0; i<=size; i++)
+  {
+    if(i == 0)
+    {
+      char line[20];
+      fgets(line, sizeof(line), dataset);
+      printf("%s",line);
+    }
+    else
+    {
+      //Lê uma linha e grava ela na Matriz:
+      char line[(size*3)];
+      fgets(line, sizeof(line), dataset);  
+      LineRecorder(&*matrix, size, line, i-1);
+    }
+  }
+}
+
+/// @brief Realiza uma Deep First Search na matriz contida em input.data 
+/// @param size Tamanho da matriz contida em input.data
+void StartDFS(int size)
+{
+  //Criar matriz de tamanho size:
+  struct tile **matrix = allocateMatrix(size);
+
+  //Lendo arquivo e gravando na variável matrix:
+  MatrixRecorder(&matrix, size);
+
+  //Mostrando a matriz lida:
+  MatrixScanner(matrix,size);
+  
+}
