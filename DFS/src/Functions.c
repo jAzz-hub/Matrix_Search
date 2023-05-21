@@ -215,7 +215,6 @@ Cord selectDirection(Tile **matrix,int size, Cord posAtual){
 
 void Percurso(Tile **matrix, int size){
   Cord posAtual = {.x = 0, .y = 0};
-  Cord passoAnterior = {.x = 0, .y = 0};
 
   /*
   while(pilha.top() != '!'){
@@ -224,10 +223,16 @@ void Percurso(Tile **matrix, int size){
     Cord passo;
     passo = selectDirection(matrix,size,posAtual);
 
-    // verifica se está preso (voltando de onde veio)
-    if(passo.x == (passoAnterior.x * -1) && passo.y == (passoAnterior.y * -1){
+    // verifica se está preso 
+    if(passo.x == 0 && passo.y == 0){
       matrix[posAtual.y][posAtual.x] = '#';
+
+      // remove o passo anterior
+      posAtual.x -= passoAnterior.x;
+      posAtual.y -= passoAnterior.y;
       pilha.pop(); 
+
+      passo = selectDirection(matrix,size,posAtual);
     }
 
     while(proximoPasso(matrix,size,posAtual,passo) && pilha.top().value != '!'){
