@@ -21,11 +21,11 @@ FILE *openInput(FILE *f, int *size, int *n) {
 /// @brief Cria uma matriz NxN de acordo com o parâmetro size
 /// @param size tamanho da matriz
 /// @return retorna uma matriz de tamanho size
-tile **allocateMatrix(int size) {
-  tile **matrix = malloc(sizeof(tile *) * (size));
+Tile **allocateMatrix(int size) {
+  Tile **matrix = malloc(sizeof(Tile *) * (size));
 
   for (int i = 0; i <= size; i++) {
-    matrix[i] = malloc(sizeof(tile) * size);
+    matrix[i] = malloc(sizeof(Tile) * size);
   }
 
   return matrix;
@@ -102,7 +102,7 @@ tile **allocateMatrix(int size) {
 /// @brief Mostra toodos os elementos contidos em uma matriz
 /// @param MatrixScoped Matriz alvo
 /// @param size Tamanho da matriz
-void MatrixScanner(tile **MatrixScoped, int size)
+void MatrixScanner(Tile **MatrixScoped, int size)
 {
   for(short int scannerRow = 0; scannerRow<size; scannerRow++)
   {
@@ -141,10 +141,9 @@ void LineCleaner(int size, char *line)
 /// @param size Tamanho da Matriz
 /// @param line Linha lida do arquivo input.data
 /// @param row Número da linha lida, será sempre menor ou igual a size
-void LineRecorder(tile **matrix, int size, char *line, int row)
+void LineRecorder(Tile **matrix, int size, char *line, int row)
 {
   LineCleaner(size, line);
-  // printf("%s",line);
   for(int column = 0; column<size; column++)
   {
     matrix[row][column].value = line[column];
@@ -155,8 +154,8 @@ void LineRecorder(tile **matrix, int size, char *line, int row)
 /// @brief Armazena conteúdo lido de input.data em uma matriz
 /// @param matrix Matriz que recebe o conteúdo lido
 /// @param size Tamanho da matriz
-/// @param input referência ao ponteiro do arquivo input
-void MatrixRecorder(tile **matrix, int size, FILE *input)
+/// @param input ponteiro do arquivo input
+void MatrixRecorder(Tile **matrix, int size, FILE *input)
 {
   char *matrixLine;
   for(unsigned short int i=0; i<=size; i++){
@@ -167,12 +166,96 @@ void MatrixRecorder(tile **matrix, int size, FILE *input)
   }
 }
 
+bool proximoPasso(Tile **matrix, int size, Cord posAtual, Cord passo){
+  if(posAtual.y + passo.y >= 0 && posAtual.y + passo.y < size){
+    if(posAtual.x + passo.x >= 0 && posAtual.x + passo.x < size){
+      // olha se pose dar mais um passo na direção
+      if(matrix[posAtual.y + passo.y][posAtual.x + passo.x].value != '#'){
+        return true;
+      }
+    }
+  }
+  
+  return false;
+}
+
+Cord selectDirection(Tile **matrix,int size, Cord posAtual){
+  // baixo
+  if(posAtual.y-1 >= 0 && matrix[posAtual.y-1][posAtual.x].value != '#'){
+    if(matrix[posAtual.y][posAtual.x].explored == false){
+      Cord pos = {.y = -1, .x = 0};
+      return pos;
+    }
+  }
+  // direita
+  else if(posAtual.x+1 < size && matrix[posAtual.y][posAtual.x+1].value != '#'){
+    if(matrix[posAtual.y][posAtual.x].explored == false){
+      Cord pos = {.y =0, .x = 1};
+      return pos;
+    }
+  }
+  // cima
+  else if(posAtual.y+1 < size && matrix[posAtual.y+1][posAtual.x].value != '#'){
+    if(matrix[posAtual.y][posAtual.x].explored == false){
+        Cord pos = {.y = 1 , .x = 0};
+        return pos;
+    }
+  }
+  // esquerda
+  else if(posAtual.x-1 >= 0 && matrix[posAtual.y][posAtual.x-1].value != '#'){
+    if(matrix[posAtual.y][posAtual.x].explored == false){
+      Cord pos = {.y = 0 , .x = -1};
+      return pos;
+    }
+  }
+
+  Cord pos = {.x = 0, .y = 0};
+  return pos;
+}
+
+void Percurso(Tile **matrix, int size){
+  Cord posAtual = {.x = 0, .y = 0};
+  Cord passoAnterior = {.x = 0, .y = 0};
+
+  /*
+  while(pilha.top() != '!'){
+    pilha.pop();
+
+    Cord passo;
+    passo = selectDirection(matrix,size,posAtual);
+
+    // verifica se está preso (voltando de onde veio)
+    if(passo.x == (passoAnterior.x * -1) && passo.y == (passoAnterior.y * -1){
+      matrix[posAtual.y][posAtual.x] = '#';
+      pilha.pop(); 
+    }
+
+    while(proximoPasso(matrix,size,posAtual,passo) && pilha.top().value != '!'){
+      posAtual.x += passo.x;
+      posAtual.y += passo.y;
+      
+      if(matrix[posAtual.y][posAtual.x] == '*'){
+        //começa do inicio
+        //pilha.clean()?
+      }
+
+      if(matrix[posAtual.y][posAtual.x].explored == false){
+        matrix[posAtual.y][posAtual.x].explored == true;
+        pilha.add(matrix[posAtual.y][posAtual.x]);
+      }
+    }
+
+    passoAnterior = passo;
+
+  }*/
+}
+
 /// @brief Realiza uma Deep First Search na matriz contida em input.data 
 /// @param size Tamanho da matriz contida em input.data
 void StartDFS(int size, FILE *input)
 {
   //Criar matriz de tamanho size:
-  tile **matrix = allocateMatrix(size);
+  Tile **matrix = allocateMatrix(size);
 
   //Lendo arquivo e gravando na variável matrix:
   MatrixRecorder(matrix, size,input);
@@ -181,4 +264,5 @@ void StartDFS(int size, FILE *input)
   //Mostrando a matriz lida:
   MatrixScanner(matrix,size);
   
+  Percurso(matrix, size);
 }

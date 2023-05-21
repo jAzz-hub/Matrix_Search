@@ -54,7 +54,7 @@
 
 int main()
 {
-	tile** Matrix;
+	Tile** Matrix;
 	int size,n;
 	FILE *input = NULL;
 
