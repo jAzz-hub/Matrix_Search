@@ -166,6 +166,12 @@ void MatrixRecorder(Tile **matrix, int size, FILE *input)
   }
 }
 
+/// @brief Decide o próximo passo 
+/// @param matrix 
+/// @param size 
+/// @param posAtual 
+/// @param passo 
+/// @return 
 bool proximoPasso(Tile **matrix, int size, Cord posAtual, Cord passo){
   if(posAtual.y + passo.y >= 0 && posAtual.y + passo.y < size){
     if(posAtual.x + passo.x >= 0 && posAtual.x + passo.x < size){

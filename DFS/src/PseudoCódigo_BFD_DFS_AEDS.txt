@@ -1,5 +1,6 @@
 
 
+DFS
 #próximo_passo = verifica se a casa futura é válida;
 
 
@@ -42,9 +43,58 @@ Passo_Busca_Profundidade(Coordenada *Posição_atual,Coordenada Direção)
     
   }  
 
+
+
+BFS
+
+CasasViaveisIniciais()
+{
+    Olha aos arredores:
+        if(#):
+            jump
+        else:
+            Lista.append(posição)
+    return Lista
+}
+
+VerificaViáveis(&)
+{
+    Olhar para todos os lados
+
+        if(i.Visited == True):
+            jump
+        else:
+            viáveis.append(i)
+
+
+    return viáveis     
+}
+
+RemoverAntigas(Adicionadas , Tamanho, &Lista)
+{
+    nRemoções = Tamanho-Adicionadas
+    
+    c = 0;
+
+    while(c<nRemoções)
+        c++
+        Lista.remover()
+}
+
 Passo_Busca_Largura()
 {
-    pega a posição atual
+
+    Iteração atual:
+      Lista = CasasViaveisIniciais()
+
+      for i in Lista:
+
+        if(VerificaViáveis(i, )):
+            c++
+            Matriz[Casa_Viável].Visited = True
+            Lista.append(Casa_Viável)
+        
+    RemoverAntigas(c, Lista.length(), &Lista)
 }
 
 
