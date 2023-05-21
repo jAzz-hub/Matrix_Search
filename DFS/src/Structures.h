@@ -1,9 +1,4 @@
-#include<stdio.h>
-#include<stdlib.h>
 #include<stdbool.h>
-#include<time.h>
-#include <unistd.h>
-#include <string.h>
 
 #define MAXCOLS 30
 #define MAXROWS 30
@@ -18,11 +13,16 @@
 // }Matrix;
 
 
-typedef struct tile
+typedef struct Tile
 {
 	char value;
 	bool explored;
-}tile;
+} Tile;
+
+typedef struct Cord {
+  unsigned char x;
+  unsigned char y;
+} Cord;
 
 // void GenerateMatrix(Matrix *mat);
 // void SetMatrixSignature();

@@ -1,6 +1,4 @@
-
 #include "Functions.h"
-
 
 // void GenerateMatrix(Matrix *mat){
 // 	int data = 0;
@@ -56,7 +54,7 @@
 
 int main()
 {
-	// Matrix myMatrix;
+	Tile** Matrix;
 	int size,n;
 	FILE *input = NULL;
 
@@ -65,10 +63,10 @@ int main()
 	// SaveMatrix(&myMatrix);
 
 	input = openInput(input, &size, &n);
+  // loop para cada matrix
+  for(int i=0; i < n; i++){
+    StartDFS(size,input);
+  }
 
-	fclose(input);
-	
-	StartDFS(size);
-
-    return 0;
+  return 0;
 }
