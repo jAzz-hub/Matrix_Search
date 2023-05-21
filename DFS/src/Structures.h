@@ -1,9 +1,4 @@
-#include<stdio.h>
-#include<stdlib.h>
 #include<stdbool.h>
-#include<time.h>
-#include <unistd.h>
-#include <string.h>
 
 #define MAXCOLS 30
 #define MAXROWS 30
