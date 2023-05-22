@@ -6,7 +6,7 @@
 
 <div align="center">
 
-# Busca em Profundidade e Largura
+# Busca em Largura e Profundidade
 
 #### Algoritmos e Estrutura de Dados
 
