@@ -22,12 +22,36 @@ nodeStack *nodeGenerator(Cord Coordinate)
   return Node;
 }
 
-
 bool emptyStack(nodeStack *Node)
 {
-
   return (Node->base == Node->top) || Node->size==0; 
 }
+
+void pushNode(nodeStack *previousNode, Cord newNodeCoordinates)
+{
+  nodeStack *newNode = nodeGenerator(newNodeCoordinates);
+
+  if(emptyStack(&*previousNode))
+  {
+    previousNode->base->after = newNode;
+    previousNode->top = newNode;
+    previousNode->top->after = NULL;
+  }
+
+  else
+  {
+    newNode->before = previousNode->top;
+    previousNode->top->before = newNode;
+    previousNode->top = newNode;
+    previousNode->top->after = NULL;
+  }
+
+  previousNode->size++;
+  //Verificar se essa linha está certa:
+  newNode->size = previousNode->size;
+}
+
+
 
 /// @brief Lê a primeira linha do arquivo input.data
 /// @return  O número de matrizes que serão lidas e o tamanho destas matrizes
@@ -304,9 +328,21 @@ void StartDFS(int size, FILE *input)
   //Mostrando a matriz lida:
   MatrixScanner(matrix,size);
   
+  Cord Random;
+  Random.x = 'd';
+  Random.y = 'e';
+  
   nodeStack firstNode;
   stackGenerator(&firstNode);
   emptyStack(&firstNode);
+  
+  pushNode(&firstNode, Random);
+  Random.x = 'b';
+  Random.y = 'a';
+  
+  pushNode(&firstNode, Random);
+
+  printf("\n\n %d \t %d",firstNode.Coordinate.x,firstNode.Coordinate.y);
 
   Percurso(matrix, size);
 }
