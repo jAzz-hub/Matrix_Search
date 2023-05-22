@@ -1,5 +1,34 @@
 #include "Functions.h"
 
+/// @brief Cria uma pilha vazia
+/// @param firstNode Variável do tipo nó de pilha que será configurada inicialmente como uma pilha vazia
+void stackGenerator(nodeStack *firstNode)
+{
+  firstNode->base = (nodeStack*)malloc(sizeof(nodeStack));
+  firstNode->base->after = NULL;
+  firstNode->top = firstNode->base;
+  firstNode->size = 0;
+}
+
+/// @brief Cria um nó para a pilha
+/// @param Coordinate Coordenada à ser gravada no nó
+/// @return Retorna um nó com Coordinate
+nodeStack *nodeGenerator(Cord Coordinate)
+{
+  nodeStack *Node = (nodeStack*)malloc(sizeof(nodeStack));
+  Node->before = NULL;
+  Node->after = NULL;
+  Node->Coordinate = Coordinate;
+  return Node;
+}
+
+
+bool emptyStack(nodeStack *Node)
+{
+
+  return (Node->base == Node->top) || Node->size==0; 
+}
+
 /// @brief Lê a primeira linha do arquivo input.data
 /// @return  O número de matrizes que serão lidas e o tamanho destas matrizes
 FILE *openInput(FILE *f, int *size, int *n) {
@@ -275,5 +304,9 @@ void StartDFS(int size, FILE *input)
   //Mostrando a matriz lida:
   MatrixScanner(matrix,size);
   
+  nodeStack firstNode;
+  stackGenerator(&firstNode);
+  emptyStack(&firstNode);
+
   Percurso(matrix, size);
 }

@@ -1,4 +1,6 @@
 #include<stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 #define MAXCOLS 30
 #define MAXROWS 30
@@ -23,6 +25,14 @@ typedef struct Cord {
   unsigned char x;
   unsigned char y;
 } Cord;
+
+typedef struct nodeStack
+{
+  Cord Coordinate;
+  struct nodeStack *after, *before, *base, *top;
+  size_t size;
+} nodeStack;
+
 
 // void GenerateMatrix(Matrix *mat);
 // void SetMatrixSignature();
