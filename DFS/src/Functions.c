@@ -48,9 +48,32 @@ void pushNode(nodeStack *previousNode, Cord newNodeCoordinates)
 
   previousNode->size++;
   //Verificar se essa linha está certa:
-  newNode->size = previousNode->size;
 }
 
+void popNode(nodeStack *Node)
+{
+
+    //O ponto do topo será igual ao penúltimo ponto empilhado:
+  if(!emptyStack(Node))
+    {
+      nodeStack *erasedNode = Node->top;
+      Node->top = Node->top->before;
+      free(erasedNode);
+
+      if(Node->top != NULL)
+      {
+        Node->top->after = NULL;
+      }
+      
+        Node->size-=1;
+    }
+  
+  
+  else
+  {
+    printf("A pilha está vazia!!");
+  }
+}
 
 
 /// @brief Lê a primeira linha do arquivo input.data
@@ -329,20 +352,48 @@ void StartDFS(int size, FILE *input)
   MatrixScanner(matrix,size);
   
   Cord Random;
-  Random.x = 'd';
-  Random.y = 'e';
+  Random.x = 12;
+  Random.y = 12;
   
+  printf("\n %d %d",Random.x, Random.y);
+
+  //Criei a pilha:
   nodeStack firstNode;
   stackGenerator(&firstNode);
-  emptyStack(&firstNode);
-  
-  pushNode(&firstNode, Random);
-  Random.x = 'b';
-  Random.y = 'a';
-  
-  pushNode(&firstNode, Random);
+  bool b = emptyStack(&firstNode);
+  printf("\t%d\n", b); // Espero que dê 1
 
-  printf("\n\n %d \t %d",firstNode.Coordinate.x,firstNode.Coordinate.y);
+   //Adicionei 1 nó:
+    pushNode(&firstNode, Random);
+    b = emptyStack(&firstNode);
+    printf("\t%d, %d\n", b, firstNode.size); // Espero que dê 0
+
+  //Testando adição e remoção em grande escala de forma consequtiva:
+  for(int i =0;i<size*1000;i++)
+  {
+    //Adicionei 1 nó:
+    pushNode(&firstNode, Random);
+    b = emptyStack(&firstNode);
+    printf("\t%d, %d\n", b, firstNode.size); // Espero que dê 0
+    
+    //Adicionei 1 nó:
+    pushNode(&firstNode, Random);
+    b = emptyStack(&firstNode);
+    printf("\t%d, %d\n", b, firstNode.size); // Espero que dê 0
+    
+
+    //Removi um nó:
+    popNode(&firstNode);
+    b = emptyStack(&firstNode);
+    printf("\t%d, %d\n", b, firstNode.size); // Espero que dê 1
+
+      //Removi um nó:
+    popNode(&firstNode);
+    b = emptyStack(&firstNode);
+    printf("\t%d, %d\n", b, firstNode.size); // Espero que dê 1
+  
+  }
+
 
   Percurso(matrix, size);
 }
