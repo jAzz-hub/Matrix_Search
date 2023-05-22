@@ -1,6 +1,7 @@
 #include<stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 #define MAXCOLS 30
 #define MAXROWS 30
@@ -22,8 +23,8 @@ typedef struct Tile
 } Tile;
 
 typedef struct Cord {
-  unsigned char x;
-  unsigned char y;
+  int x;
+  int y;
 } Cord;
 
 typedef struct nodeStack
