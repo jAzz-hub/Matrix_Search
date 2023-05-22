@@ -71,7 +71,7 @@ Este repositório apresenta  a solução para um problema proposto na disciplina
     
 
 ### Grafos
-- No desafio Labirinto Recorrente(<a href = "https://github.com/Getulio-Mendes/LabirintoRecorrente">Getúlio</a>, <a href = "https://github.com/rafaegont1/O-labirinto-recorrente">Rafel</a> e <a href = "https://github.com/jAzz-hub/Recurrent_Labyrinth">João</a>), citar e estudar um pouco sobre o objeto matemático descrito como Grafo era uma opção para aprimorar a documentação desenvolvida contribuindo para o entendimento do leitor à cerca do estudo elaborado nos repositórios. Contúdo no caso deste trabalho, é essêncial que a documentação represente uma introdução ao tema para melhor modelagem dos algoritmos desenvolvidos, afinal eles são aplicados majoritariamente à grafos e tiveram no caso deste repositório uma excessão com o uso de percorrimento nas matrizes bidimensionais.
+- No desafio Labirinto Recorrente(<a href = "https://github.com/Getulio-Mendes/LabirintoRecorrente">Getúlio</a>, <a href = "https://github.com/rafaegont1/O-labirinto-recorrente">Rafel</a> e <a href = "https://github.com/jAzz-hub/Recurrent_Labyrinth">João</a>), citar e estudar um pouco sobre o objeto matemático descrito como Grafo era uma opção para aprimorar a documentação desenvolvida contribuindo para o entendimento do leitor à cerca do estudo elaborado nos repositórios. Contúdo no caso deste trabalho, é essêncial que a documentação represente uma introdução ao tema para melhor modelagem dos algoritmos desenvolvidos, afinal eles são aplicados majoritariamente à grafos e tiveram no caso deste repositório um caso nem tão recorrente de percorrimento em matrizes bidimensionais não associadas diretamente à grafos.
 #### O que é um Grafo?
 - Um grafo é uma forma de representar relações entre objetos. Para que isso se torne mais claro, os objetos ou abstrações do que quer que necessite ser representado pelo grafo se denomina vértice, e o nome da relação entre dois vértices é aresta. Portanto um grafo é definido pela seguinte notação matemática:
 
@@ -101,7 +101,7 @@ ____________________________________________
 
 
 ### Busca em Profundidade
-- A busca em profundidade é um algoritmo criado para percorrer um grafo. Específicamente Deep First Search(DFS) ou Busca em profundidade funciona da seguinte forma.
+- Deep First Search(DFS) ou Busca em profundidade é um algoritmo que desenvolvido para percorrer um grafo, ele se propõe à fazer isso da seguinte forma:
     - Em primeiro lugar um vértice inicial é escolhido como ponto de partida.
     - Adiante um vértice relacionado à este é escolhido como uma opção de deslocamento.
     - Caso o vértice observado...
