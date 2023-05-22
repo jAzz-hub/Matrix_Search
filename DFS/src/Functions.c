@@ -41,18 +41,20 @@ void pushNode(nodeStack *previousNode, Cord newNodeCoordinates)
   else
   {
     newNode->before = previousNode->top;
-    previousNode->top->before = newNode;
+    previousNode->top->after = newNode;
     previousNode->top = newNode;
     previousNode->top->after = NULL;
   }
 
   previousNode->size++;
+  previousNode->top->size++;
   //Verificar se essa linha está certa:
 }
 
 void popNode(nodeStack *Node)
 {
 
+  
     //O ponto do topo será igual ao penúltimo ponto empilhado:
   if(!emptyStack(Node))
     {
@@ -65,7 +67,8 @@ void popNode(nodeStack *Node)
         Node->top->after = NULL;
       }
       
-        Node->size-=1;
+      Node->size-=1;
+      Node->top->size-=1;
     }
   
   
@@ -75,6 +78,25 @@ void popNode(nodeStack *Node)
   }
 }
 
+void showNodes(nodeStack *Node)
+{
+  if(emptyStack(Node))
+    return;
+  else
+  {
+    nodeStack *nodeViewer = Node->top;
+    printf("\n");
+    unsigned short int counter = Node->size;
+
+    
+    while (nodeViewer!=NULL)
+    {
+      counter-=1;
+      printf(" Node %d, \t x: %d | y: %d\n",counter ,nodeViewer->Coordinate.x, nodeViewer->Coordinate.y);
+      nodeViewer = nodeViewer->before;
+    }
+  }
+}
 
 /// @brief Lê a primeira linha do arquivo input.data
 /// @return  O número de matrizes que serão lidas e o tamanho destas matrizes
@@ -368,32 +390,32 @@ void StartDFS(int size, FILE *input)
     b = emptyStack(&firstNode);
     printf("\t%d, %d\n", b, firstNode.size); // Espero que dê 0
 
-  //Testando adição e remoção em grande escala de forma consequtiva:
-  for(int i =0;i<size*1000;i++)
-  {
-    //Adicionei 1 nó:
+    
+    Random.x = 13;
+    Random.y = 13;
+       //Adicionei 1 nó:
     pushNode(&firstNode, Random);
     b = emptyStack(&firstNode);
     printf("\t%d, %d\n", b, firstNode.size); // Espero que dê 0
+
     
-    //Adicionei 1 nó:
+    Random.x = 14;
+    Random.y = 14;
     pushNode(&firstNode, Random);
     b = emptyStack(&firstNode);
     printf("\t%d, %d\n", b, firstNode.size); // Espero que dê 0
+
     
-
-    //Removi um nó:
-    popNode(&firstNode);
+    Random.x = 15;
+    Random.y = 15;
+       //Adicionei 1 nó:
+    pushNode(&firstNode, Random);
     b = emptyStack(&firstNode);
-    printf("\t%d, %d\n", b, firstNode.size); // Espero que dê 1
+    printf("\t%d, %d\n", b, firstNode.size); // Espero que dê 0
 
-      //Removi um nó:
-    popNode(&firstNode);
-    b = emptyStack(&firstNode);
-    printf("\t%d, %d\n", b, firstNode.size); // Espero que dê 1
-  
-  }
 
+  printf("\n\n");
+  showNodes(&firstNode);
 
   Percurso(matrix, size);
 }
