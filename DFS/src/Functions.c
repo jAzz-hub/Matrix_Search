@@ -263,37 +263,19 @@ void MatrixRecorder(Tile **matrix, int size, FILE *input)
   }
 }
 
-/// @brief Decide o próximo passo 
-/// @param matrix 
-/// @param size 
-/// @param posAtual 
-/// @param passo 
-/// @return 
-bool proximoPasso(Tile **matrix, int size, Cord posAtual, Cord passo)
-{
-  if(posAtual.y + passo.y >= 0 && posAtual.y + passo.y < size)
-  {
-    if(posAtual.x + passo.x >= 0 && posAtual.x + passo.x < size)
-    {
-      // olha se pode dar mais um passo na direção
-      if(matrix[posAtual.y + passo.y][posAtual.x + passo.x].value != '#')
-      {
-        return true;
-      }
-      else
-        return false;
-    }
-  }
-}
+
+
 
 Cord selectDirection(Tile **matrix,int size, Cord posAtual){
-  // baixo
-  if(posAtual.y-1 >= 0 && matrix[posAtual.y-1][posAtual.x].value != '#'){
+  // cima
+  //Baixo
+ if(posAtual.y+1 < size && matrix[posAtual.y+1][posAtual.x].value != '#'){
     if(matrix[posAtual.y][posAtual.x].explored == false){
-      Cord pos = {.y = -1, .x = 0, .value =  matrix[posAtual.y-1][posAtual.x].value};
-      return pos;
+        Cord pos = {.y = 1 , .x = 0, .value = matrix[posAtual.y+1][posAtual.x].value};
+        return pos;
     }
   }
+  
   // direita
   else if(posAtual.x+1 < size && matrix[posAtual.y][posAtual.x+1].value != '#'){
     if(matrix[posAtual.y][posAtual.x].explored == false){
@@ -301,11 +283,19 @@ Cord selectDirection(Tile **matrix,int size, Cord posAtual){
       return pos;
     }
   }
-  // cima
+
   else if(posAtual.y+1 < size && matrix[posAtual.y+1][posAtual.x].value != '#'){
     if(matrix[posAtual.y][posAtual.x].explored == false){
         Cord pos = {.y = 1 , .x = 0, .value = matrix[posAtual.y+1][posAtual.x].value};
         return pos;
+    }
+  }
+  // baixo
+  //Cima
+  else if(posAtual.y-1 >= 0 && matrix[posAtual.y-1][posAtual.x].value != '#'){
+    if(matrix[posAtual.y][posAtual.x].explored == false){
+      Cord pos = {.y = -1, .x = 0, .value =  matrix[posAtual.y-1][posAtual.x].value};
+      return pos;
     }
   }
   // esquerda
@@ -316,67 +306,273 @@ Cord selectDirection(Tile **matrix,int size, Cord posAtual){
     }
   }
 
-  Cord pos = {.x = 0, .y = 0, .value = matrix[0][0].value};
+  Cord pos = {.x = 0, .y = 0, .value = matrix[posAtual.y][posAtual.x].value};
   return pos;
+}
+
+
+void forbiddenWay(Tile **matrix, Cord *nowPosition, nodeStack *Stack, Cord *step, int size)
+{
+  //Erguendo parede e tornando o caminho conhecido:
+  matrix[nowPosition->y][nowPosition->x].value = '#';
+  matrix[nowPosition->y][nowPosition->x].explored = true;
+
+  nowPosition->x = nowPosition->x - step->x;
+  nowPosition->y = nowPosition->y - step->y;
+
+  step = selectDirection(matrix, size, *nowPosition);
+  printf("YOWAY");
+    exit(0);
+
+  //Removendo nó da pilha:
+  popNode(Stack);
+}
+
+/// @brief Decide o próximo passo 
+/// @param matrix 
+/// @param size 
+/// @param posAtual 
+/// @param passo 
+/// @return 
+bool proximoPasso(Tile **matrix, int size, Cord *posAtual, Cord passo, nodeStack *Stack)
+{
+  if(posAtual->y + passo.y >= 0 && posAtual->y + passo.y < size)
+  {
+    if(posAtual->x + passo.x >= 0 && posAtual->x + passo.x < size)
+    {
+      // olha se pode dar mais um passo na direção
+      if(matrix[posAtual->y + passo.y][posAtual->x + passo.x].value != '#' || matrix[posAtual->y + passo.y][posAtual->x + passo.x].explored == true )
+      {
+        return true;
+      }
+      else
+      {
+        // printf("PASSEI AQUI %d %d",posAtual->y,posAtual->x);
+        // //Pavimenta e tira um do laço;
+        // forbiddenWay(matrix, posAtual, Stack, passo);
+        return false;
+      }
+    }
+  }
+}
+
+
+void Reiniciar(Tile **matrix, nodeStack *Stack)
+{
+  while (!emptyStack(&*Stack))
+  {
+    matrix[Stack->Coordinate.y][Stack->Coordinate.x].explored = false;
+    popNode(Stack);    
+  }
+}
+
+void StuckInBeginning(Tile **matrix,nodeStack *Stack, Cord step, Cord nowPosition, int size)
+{
+  if((step.x == 0 && step.y == 0) && (nowPosition.x == 0 && nowPosition.y == 0) && (Stack->size==1))
+  {
+    matrix[nowPosition.y][nowPosition.x].value = '#';
+    matrix[nowPosition.y][nowPosition.x].explored = true;
+    popNode(Stack);
+    
+    printf("\n\nESTOU PRESO!\n");
+    printf("\n\tObserve que o ponto de início possui paredes ou está cercado por elas\n ! VERIFIQUE O ARQUIVO DE ENTRADA !\n\n");
+    printf("x = ponto inicial\n");
+    printf("\t0   x %c %c\n", matrix[nowPosition.y][nowPosition.x+1].value, matrix[nowPosition.y][nowPosition.x+2].value);
+    printf("\t1   %c %c %c\n",matrix[nowPosition.y+1][nowPosition.x].value, matrix[nowPosition.y+1][nowPosition.x+1].value, matrix[nowPosition.y+1][nowPosition.x+2].value);
+    printf("\t2   %c %c %c\n",matrix[nowPosition.y+2][nowPosition.x].value, matrix[nowPosition.y+2][nowPosition.x+1].value, matrix[nowPosition.y+2][nowPosition.x+2].value);    
+    exit(0);
+  }
+}
+
+// /// @brief 
+// /// @param matrix 
+// /// @param step 
+// /// @param nowPosition 
+// /// @param size 
+// /// @return 
+// bool Wreck(Tile **matrix, Cord step, Cord posAtual, int size)
+// {
+//   printf("ENTREI AQUIIII");
+//   if(posAtual.y+1 < size && matrix[posAtual.y+1][posAtual.x].value != '#'){
+//     if(matrix[posAtual.y][posAtual.x].explored == false){
+//         return false;
+//     }
+//   }
+  
+//   // direita
+//   else if(posAtual.x+1 < size && matrix[posAtual.y][posAtual.x+1].value != '#'){
+//     if(matrix[posAtual.y][posAtual.x].explored == false){
+//       return false;
+//     }
+//   }
+
+//   else if(posAtual.y+1 < size && matrix[posAtual.y+1][posAtual.x].value != '#'){
+//     if(matrix[posAtual.y][posAtual.x].explored == false){
+//         return false;
+//     }
+//   }
+//   // baixo
+//   //Cima
+//   else if(posAtual.y-1 >= 0 && matrix[posAtual.y-1][posAtual.x].value != '#'){
+//     if(matrix[posAtual.y][posAtual.x].explored == false){
+//       return false;
+//     }
+//   }
+//   // esquerda
+//   else if(posAtual.x-1 >= 0 && matrix[posAtual.y][posAtual.x-1].value != '#'){
+//     if(matrix[posAtual.y][posAtual.x].explored == false){
+//       return false;
+//     }
+//   }
+
+//   else
+//   {    
+//     printf("WWWNTREI AQUIIII");
+//     matrix[posAtual.y][posAtual.x].value = '#';
+//     matrix[posAtual.y][posAtual.x].explored = true;
+//     posAtual.y = posAtual.y - step.x;
+//     posAtual.x = posAtual.x - step.y;    
+//     return true;
+//   }
+// }
+
+//Verificando se não há caminhos possíveis ao redor:
+bool noWay(Tile **matrix, Cord nowPosition)
+{
+  bool N,S,W,E = false;
+  bool rightBorder = ((nowPosition.x+1) >=30);
+  bool upBorder = (nowPosition.y-1 >= 30);
+  bool downBorder = (nowPosition.y+1 >= 30);
+  bool leftBorder = (nowPosition.x-1 >= 30);
+
+  if(upBorder)
+    S = matrix[nowPosition.y+1][nowPosition.x].value == '#' || matrix[nowPosition.y+1][nowPosition.x].explored == true ;
+
+  if(rightBorder)
+    E = matrix[nowPosition.y][nowPosition.x+1].value == '#' || matrix[nowPosition.y][nowPosition.x+1].explored == true ;
+    
+  if(leftBorder)
+    W = matrix[nowPosition.y][nowPosition.x-1].value == '#' || matrix[nowPosition.y][nowPosition.x-1].explored == true ;
+  
+  if(downBorder)
+    N = matrix[nowPosition.y-1][nowPosition.x].value == '#' || matrix[nowPosition.y-1][nowPosition.x].explored == true ;
+  
+
+  if( (!S || downBorder) && (!E || rightBorder)  && (!W || leftBorder) )
+  {
+    return true;
+    
+  }
+
+  else if ((!S || downBorder) && (!N || upBorder)  && (!E || rightBorder) )
+  {
+    
+    return true;
+  }
+
+  
+  else if ((!S || downBorder) && (!N || upBorder)  && (!W || leftBorder) )
+  {
+    return true;
+  }
+
+  
+  else if ((!E || downBorder) && (!N || upBorder)  && (!W || leftBorder) )
+  {
+    return true;
+  }
+  
+
+  else
+    return false;
+    
 }
 
 void Percurso(Tile **matrix, int size, nodeStack *Stack)
 {
-  
-  //Tem problema transformar step e now position na mesma variável?
-  
+  //Crio a posição do agora:
   Cord nowPosition = {.x = 0, .y = 0};
-
-  
   Stack->top->Coordinate.value = matrix[Stack->Coordinate.y][Stack->Coordinate.x].value;
-  
- 
-  printf("\n\t%d---%d---%c\n",Stack->top->Coordinate.x, Stack->top->Coordinate.y, Stack->top->Coordinate.value);
-  
+
+  Cord step;
+  int counter = 0;
+
+  //Enquanto não alcançar a vitória:
   while(Stack->Coordinate.value != '!')
-  {
-    int counter = 0;
-    popNode(Stack);
+  { 
     
-
-    Cord step;
+    //O possível passo
     step = selectDirection(matrix,size,nowPosition);
-
+    printf("\n \t%d \t %d  \t\t %d-%d \n", step.y, step.x, nowPosition.y, nowPosition.x);
+    printf("\t0   x %c %c\n", matrix[nowPosition.y][nowPosition.x+1].value, matrix[nowPosition.y][nowPosition.x+2].value);
+    printf("\t1   %c %c %c\n",matrix[nowPosition.y+1][nowPosition.x].value, matrix[nowPosition.y+1][nowPosition.x+1].value, matrix[nowPosition.y+1][nowPosition.x+2].value);
+    printf("\t2   %c %c %c\n",matrix[nowPosition.y+2][nowPosition.x].value, matrix[nowPosition.y+2][nowPosition.x+1].value, matrix[nowPosition.y+2][nowPosition.x+2].value);
+    
+    StuckInBeginning(matrix, Stack, step, nowPosition,size);
     
     // verifica se está preso:
-    if(step.x == 0 && step.y == 0){
+    // if(step.x == 0 && step.y == 0){
       
-      matrix[nowPosition.y][nowPosition.x].value = '#';
+    //   matrix[nowPosition.y][nowPosition.x].value = '#';
+    //   matrix[nowPosition.y][nowPosition.x].explored = true;
+    //   printf("AQUI TAMBÉM");
+    //   popNode(Stack);
 
-      popNode(Stack);
+    //   step = selectDirection(matrix,size,nowPosition);
+      
+    // }
+    // else
+    // {
+      
+      if(counter == 20)
+      {
 
-      step = selectDirection(matrix,size,nowPosition);
-      
-    }
-    else
-    {
-      
-  
+        printf("alooo");
+        showNodes(Stack);
+        exit(0);
+      }
+
       unsigned char top = matrix[nowPosition.x][nowPosition.y].value;
 
       //Enquanto houver a possibilidade de se caminhar para uma única direção:
-      while(proximoPasso(matrix,size,nowPosition,step) && top != '!')
+      while(proximoPasso(matrix,size,&nowPosition,step, Stack) && top != '!')
       {
 
         counter+=1;
 
 
         /*ATENÇÃO!! TENTANDO DEBUGAR*/
-        if(counter==9)
+            
+             
+        if(counter==10)
         {
           showNodes(Stack);
-          printf("%d %c %d %d",(matrix[nowPosition.y][nowPosition.x].explored), matrix[nowPosition.y][nowPosition.x].value, nowPosition.y, nowPosition.x);
+          // printf("%d %c %d %d -- %d",(matrix[nowPosition.y][nowPosition.x].explored), matrix[nowPosition.y][nowPosition.x].value, nowPosition.y, nowPosition.x, Stack->size);
           exit(0);
+        }
+
+          // usar a função forbiddenWay quando vc estiver cercado de paredes, antes de dar o próximo passo
+        if (counter>=3)
+        {
+          printf("explorado? %d valor: %c [x : %d y : %d ]-- %d",(matrix[nowPosition.y][nowPosition.x].explored), matrix[nowPosition.y][nowPosition.x].value, nowPosition.y, nowPosition.x, Stack->size);
           
-        }      
-             
+        if(noWay(matrix, nowPosition))
+          forbiddenWay(matrix, &nowPosition, Stack, &step, size);
+        printf("RESULTADO: x: %d  y: %d  STEP: x: %d y: %d", nowPosition.y, nowPosition.x, step.y , step.x);
+        exit(0);
+        
+        }
+        // usar a função forbiddenWay quando vc estiver cercado de paredes, antes de dar o próximo passo
         nowPosition.x += step.x;
         nowPosition.y += step.y;
+
+        //Verifica se alguém bateu em uma parede enquanto corria:
+        ///matrix - tem a posição de batida emparedada;
+        ///Stack - não meche!!
+        ///step - vai ser decrescido de nowPosition;
+        ///nowPosition -= step;
+        
+
         unsigned char top = matrix[nowPosition.x][nowPosition.y].value;
        
         if(matrix[nowPosition.y][nowPosition.x].explored == false)
@@ -387,7 +583,10 @@ void Percurso(Tile **matrix, int size, nodeStack *Stack)
           {
             matrix[nowPosition.y][nowPosition.x].value = '1';
             printf("EXITEI!! %d", counter);
-            exit(0);
+
+            Reiniciar(matrix, Stack);
+            break;
+            
             //começa do inicio
             //pilha.clean()?
             //Desempilhar()
@@ -404,7 +603,7 @@ void Percurso(Tile **matrix, int size, nodeStack *Stack)
           else
           {
             printf("EXITEI!!3 %d", counter);
-            exit(0);
+            
             matrix[nowPosition.y][nowPosition.x].explored == true;
             pushNode(Stack, nowPosition);
             //Emitir relatório;
@@ -415,15 +614,11 @@ void Percurso(Tile **matrix, int size, nodeStack *Stack)
 
         else
         {
-          printf("EXITEI!!");
+          printf("111EXITEI!!");
           false;
-          exit(0);
         }
-      }
+      
     }
-
-    // passoAnterior = passo;
-
   }
 }
 
