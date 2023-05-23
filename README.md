@@ -17,6 +17,27 @@
 
 </div>
 
+## Índice
+ - [Introdução](#Introdução)
+    - [Contextualizando os Algoritmos](#contextualizando-os-algoritmos)
+
+ - [Contexto](#contexto)
+    - [Estruturas de Dados](#Estruturas-de-Dados)
+    - [Algoritmos](#Algoritmos)
+        - [DFS em Grafos](#DFS-em-Grafos)
+        - [DFS em Matrizes Bidimensionais](#DFS-em-Matrizes-Bidimensionais)
+
+ - [Objetivos](#Objetivoss)
+
+ - [Metodologia](#Metodologia)
+    - [Solução](#Solução)
+    - [Desenvolvimento](#Desenvolvimento)
+    - [Compilação e Execução](#Compilação-e-Execução)
+    - [Ambiente de Desenvolvimento](#Ambiente-de-Desenvolvimento)
+- [Conclusão](#Conclusão)
+    - [Como melhorar a Metodologia?](#Conclusão)
+    - [Reavaliando a Implementação do Algoritmo em Matrizes bidimensionais](#Conclusão)
+    - [Referências](#Referências)
 <br><br>
 
 ## Introdução
@@ -61,59 +82,70 @@ Este repositório apresenta  a solução para um problema proposto na disciplina
     -   Laranja: Posição atual ou inicial.
     -   Rosa: Posição futura escolhida.
 
-### Contextualizando os Algoritmos
-- Para contextualizar o funcionamento do algoritmo, considerer que um personagem caminha por um labirinto até encontrar uma saída definida por um ponto de interrogação:
-    - O personagem representa uma abstração para uma busca realizada em uma matriz e essa busca se encerra quando o elemento $?$ é encontrado na matriz.
-    -   O personagem inicia sua viajem com $10$ pontos de vida.
-    -   O caracter $*$ representa uma casa por onde caso o ambicioso passe, haverá descrescimento de um ponto de vida do mesmo. Denomina-se o $*$ como perigo.
-    -   O personagem morre ao enfrentar o número de perigos que o leve a ter pontos de vida igual a $0$.
+## Contexto
+- Para contextualizar o funcionamento do algoritmo, considere que um personagem caminha por um labirinto até encontrar uma saída definida por um ponto de interrogação:
+    - O personagem representa uma abstração para uma busca realizada em uma matriz, essa busca se encerra quando o elemento $!$ é encontrado.
+    -   O caracter $*$ representa uma casa que reiniciar a pesquisa. Isso significa que, se o personagem passa pelo elemento $a_{ij} = *$, este haverá de reiniciar sua busca da posição $a_{00}$. Além disso o caminho entre $a_{ij}$ e $a_{00}$ será considerado como não percorrido.
     -   A parede representa uma casa por onde o ambicioso não consegue passar.
     
+### Estruturas de Dados
+- Para solucionar o problema a equipe usufruiu da alocação dos valores de entradas em elementos $a_{ij}$ de uma matriz $M$ de ordem $N$. Portanto a estrutura de dados utilizada foi uma matriz $N$ x $N$.
 
-### Grafos
-- No desafio Labirinto Recorrente(<a href = "https://github.com/Getulio-Mendes/LabirintoRecorrente">Getúlio</a>, <a href = "https://github.com/rafaegont1/O-labirinto-recorrente">Rafel</a> e <a href = "https://github.com/jAzz-hub/Recurrent_Labyrinth">João</a>), citar e estudar um pouco sobre o objeto matemático descrito como Grafo era uma opção para aprimorar a documentação desenvolvida contribuindo para o entendimento do leitor à cerca do estudo elaborado nos repositórios. Contúdo no caso deste trabalho, é essêncial que a documentação represente uma introdução ao tema para melhor modelagem dos algoritmos desenvolvidos, afinal eles são aplicados majoritariamente à grafos e tiveram no caso deste repositório um caso nem tão recorrente de percorrimento em matrizes bidimensionais não associadas diretamente à grafos.
-#### O que é um Grafo?
-- Um grafo é uma forma de representar relações entre objetos. Para que isso se torne mais claro, os objetos ou abstrações do que quer que necessite ser representado pelo grafo se denomina vértice, e o nome da relação entre dois vértices é aresta. Portanto um grafo é definido pela seguinte notação matemática:
+### Algoritmos
+-  Os algoritmos para guiar o personagem idealizado, são buscas em largura e em profundidade. Estes algoritmos serão executados nas matrizes bidimensionais utilizadas como entradas no arquivo _`input.data`_.
 
-  - $G(V,E)$
+#### DFS em Grafos
+- Busca em profundiade propõe que uma única linha ou coluna seja percorrida até que se encontre o que se espera. Vale ressaltar que isso ocorre em uma matriz de duas dimensões, em um grafo, ocorre um passeio percorrendo um único vértice de adjascência do vértice atual. Outro vértice ajascente só será visitado quando a busca tiver sido realizada até um vértice de grau 1 onde seu vértice vizinho já foi visitado, ou quando um vértice tem uma única aresta não percorrida sendo esta uma ligação entre o vértice presente e um vértice já visitado. Como pode ser visto um passeio com DFS no grafo abaixo segue a ordem formalmente representada como ${Passeio}: (0, 1, 2, 3, 5, 6)$.
 
-#### Os vértices:
-- Os vertices, normalmente representados por $v_{i}$, estes estão contidos em um conjunto $V$.
 
-#### As Arestas:
-- As arestas, conectam os vértices de um grafo através de relações, elas são representadas por $e_{i}$ e estão contidas em formas como $(v_{1}$ x $v_{2})$ por exemplo dentro de um conjunto $E$.
-
-#### Modelos Usando Grafos:
-
-- Os grafos podem ser usados na representação de Derivação Sintática, Conectividade na Internet e muitas outras coisas (ALFREDO, 2018).
-
-<div align="center">
-<strong>Figura 1</strong> - Aplicações de grafos
+<div align = "center" >
 <br>
-<img src="./DFS/img/graphAplications.png" height="100%" width="100%">
+<strong>Figura 1 -</strong> DFS em grafo
 <br>
-Fonte: Captura de tela pelo autor¹.
+<img src="./DFS/img/DFS_Walk.png" height="78%" width="78%">
+<br>
+Fonte: Vídeo¹.
 <br>
 ____________________________________________
-<br>¹Disponível no <a href="https://docs.google.com/spreadsheets/d/1nbK5ybx7Lwp98y11IScqkPUhSizV1jwG1KyGsdvTEjI/edit#gid=0">PDF do professor Antonio Alfredo Ferreira Loureiro</a>.
+<br>Criada usando o Canva assistir ao vídeo¹, Disponível no <a href="https://www.canva.com/design/DAFd8EjV-8w/M4fX0cOTTduzNNPJxuF73Q/edit?utm_content=DAFd8EjV-8w&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton">Link</a>.
 </div>
+
+
+<br>
+Observa-se que os vértices circulados de vermelho são vértices com adjascencia em vértices já visitados ou de grau 1, ou seja, isolados.
+
+
+#### DFS em Matrizes Bidimensionais
+- Já em matrizes bidimensionais a DFS percorre uma linha ou coluna até que encontre um caracter que a faça reorientar a busca em outra direção. As direções escolhidas não podem fazer com que a busca passe em um elemento da matriz que já foi visitado previamente. Observe como a DFS percorre um coluna por completo e tem uma seta vermelha representando que não pode se mover para $a_{10}$ pois essa posição já foi percorrida previamente.
+
+<div align = "center" >
+<br>
+<strong>Figura 2 -</strong> DFS em Matriz
+<br>
+<img src = "./DFS/img/DFS_MATRIX.png">
+<br>
+Fonte: Construção pelo autor².
+<br>
+____________________________________________
+<br>Criada usando o Canva², Disponível no <a href="https://www.canva.com/design/DAFd8EjV-8w/M4fX0cOTTduzNNPJxuF73Q/edit?utm_content=DAFd8EjV-8w&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton">Link</a>.
+</div>
+
+
+<br>
+<br>
+referências:
+<br>
 <br>
 
-
-### Busca em Profundidade
-- Deep First Search(DFS) ou Busca em profundidade é um algoritmo que desenvolvido para percorrer um grafo, ele se propõe à fazer isso da seguinte forma:
-    - Em primeiro lugar um vértice inicial é escolhido como ponto de partida.
-    - Adiante um vértice relacionado à este é escolhido como uma opção de deslocamento.
-    - Caso o vértice observado...
-
-*Alternativa de abordagem:* Percursos ou circuitos podem representar conceitos mais completos ao se tratar de relações entre abstrações com informações. Os Grafos são a trativa adequada para resolver esse tipo de problema, definidos como estruturas formadas por objetos que apresentam uma relação comum, abrangem muitos problemas. Caso haja interesse em modelar os conceitos contextualizados nessas estruturas, é valida à consulta dos seguintes links: <a href = " " >Aula em português</a> , <a href = " " >Leitura</a> e <a href="https://graphonline.ru/pt/">Modelagem e experimentação</a>;
-
-referências:
-https://www.youtube.com/watch?v=s-CYnVz-uh4&t=122s
 
 https://www.youtube.com/watch?v=s-CYnVz-uh4&t=122s
 
 https://www.youtube.com/watch?v=xlVX7dXLS64
 
+https://www.youtube.com/watch?v=125pPCIRjZ8
+
 links úteis:
 "https://graphonline.ru/pt/"
+
+
+A equipe <a href = "https://github.com/Getulio-Mendes/LabirintoRecorrente">Getúlio</a>, <a href = "https://github.com/rafaegont1/O-labirinto-recorrente">Rafel</a> e <a href = "https://github.com/jAzz-hub/Recurrent_Labyrinth">João</a>
