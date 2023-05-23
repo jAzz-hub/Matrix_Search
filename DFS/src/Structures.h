@@ -1,4 +1,7 @@
-#include<stdbool.h>
+#ifndef STRUCTS_HPP
+#define STRUCTS_HPP
+
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -28,14 +31,8 @@ typedef struct Cord {
   unsigned char value;
 } Cord;
 
-typedef struct nodeStack
-{
-  Cord Coordinate;
-  struct nodeStack *after, *before, *base, *top;
-  size_t size;
-} nodeStack;
-
-
 // void GenerateMatrix(Matrix *mat);
 // void SetMatrixSignature();
 // void SaveMatrix(Matrix *mat);
+
+#endif

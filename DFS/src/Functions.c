@@ -1,101 +1,5 @@
 #include "Functions.h"
-
-/// @brief Cria uma pilha vazia
-/// @param firstNode Variável do tipo nó de pilha que será configurada inicialmente como uma pilha vazia
-void stackGenerator(nodeStack *firstNode)
-{
-  firstNode->base = (nodeStack*)malloc(sizeof(nodeStack));
-  firstNode->base->after = NULL;
-  firstNode->top = firstNode->base;
-  firstNode->size = 0;
-}
-
-/// @brief Cria um nó para a pilha
-/// @param Coordinate Coordenada à ser gravada no nó
-/// @return Retorna um nó com Coordinate
-nodeStack *nodeGenerator(Cord Coordinate)
-{
-  nodeStack *Node = (nodeStack*)malloc(sizeof(nodeStack));
-  Node->before = NULL;
-  Node->after = NULL;
-  Node->Coordinate = Coordinate;
-  return Node;
-}
-
-bool emptyStack(nodeStack *Node)
-{
-  return (Node->base == Node->top) || Node->size==0; 
-}
-
-void pushNode(nodeStack *previousNode, Cord newNodeCoordinates)
-{
-  nodeStack *newNode = nodeGenerator(newNodeCoordinates);
-
-  if(emptyStack(&*previousNode))
-  {
-    previousNode->base->after = newNode;
-    previousNode->top = newNode;
-    previousNode->top->after = NULL;
-  }
-
-  else
-  {
-    newNode->before = previousNode->top;
-    previousNode->top->after = newNode;
-    previousNode->top = newNode;
-    previousNode->top->after = NULL;
-  }
-
-  previousNode->size++;
-  previousNode->top->size++;
-  //Verificar se essa linha está certa:
-}
-
-void popNode(nodeStack *Node)
-{
-  
-    //O ponto do topo será igual ao penúltimo ponto empilhado:
-  if(!emptyStack(Node))
-    {
-      nodeStack *erasedNode = Node->top;
-      Node->top = Node->top->before;
-      free(erasedNode);
-      
-      if(Node->top != NULL)
-      {
-        Node->top->after = NULL;
-      }
-      
-      Node->size-=1;
-    }
-  
-  
-  else
-  {
-    printf("A pilha está vazia!!");
-  }
-}
-
-void showNodes(nodeStack *Node)
-{
-  if(emptyStack(Node))
-    return;
-  else
-  {
-    nodeStack *nodeViewer = Node->top;
-    printf("\n");
-    unsigned short int counter = Node->size;
-
-    
-    while (nodeViewer!=NULL)
-    {
-      counter-=1;
-      printf(" Node %d, \t x: %d | y: %d\n",counter ,nodeViewer->Coordinate.x, nodeViewer->Coordinate.y);
-      nodeViewer = nodeViewer->before;
-    }
-  }
-}
-
+#include "Stack.h"
 
 /// @brief Lê a primeira linha do arquivo input.data
 /// @return  O número de matrizes que serão lidas e o tamanho destas matrizes
@@ -264,8 +168,6 @@ void MatrixRecorder(Tile **matrix, int size, FILE *input)
 }
 
 
-
-
 Cord selectDirection(Tile **matrix,int size, Cord posAtual){
   // cima
   //Baixo
@@ -275,7 +177,6 @@ Cord selectDirection(Tile **matrix,int size, Cord posAtual){
         return pos;
     }
   }
-  
   // direita
   else if(posAtual.x+1 < size && matrix[posAtual.y][posAtual.x+1].value != '#'){
     if(matrix[posAtual.y][posAtual.x].explored == false){
@@ -320,9 +221,7 @@ void forbiddenWay(Tile **matrix, Cord *nowPosition, nodeStack *Stack, Cord *step
   nowPosition->x = nowPosition->x - step->x;
   nowPosition->y = nowPosition->y - step->y;
 
-  step = selectDirection(matrix, size, *nowPosition);
-  printf("YOWAY");
-    exit(0);
+  *step = selectDirection(matrix, size, *nowPosition);
 
   //Removendo nó da pilha:
   popNode(Stack);
@@ -354,6 +253,7 @@ bool proximoPasso(Tile **matrix, int size, Cord *posAtual, Cord passo, nodeStack
       }
     }
   }
+  return false;
 }
 
 
@@ -437,13 +337,13 @@ void StuckInBeginning(Tile **matrix,nodeStack *Stack, Cord step, Cord nowPositio
 // }
 
 //Verificando se não há caminhos possíveis ao redor:
-bool noWay(Tile **matrix, Cord nowPosition)
+bool noWay(Tile **matrix, Cord nowPosition, int size)
 {
   bool N,S,W,E = false;
-  bool rightBorder = ((nowPosition.x+1) >=30);
-  bool upBorder = (nowPosition.y-1 >= 30);
-  bool downBorder = (nowPosition.y+1 >= 30);
-  bool leftBorder = (nowPosition.x-1 >= 30);
+  bool rightBorder = ((nowPosition.x+1) == size);
+  bool upBorder = (nowPosition.y-1 ==  size);
+  bool downBorder = (nowPosition.y+1 == size);
+  bool leftBorder = (nowPosition.x-1 == size);
 
   if(upBorder)
     S = matrix[nowPosition.y+1][nowPosition.x].value == '#' || matrix[nowPosition.y+1][nowPosition.x].explored == true ;
@@ -495,6 +395,7 @@ void Percurso(Tile **matrix, int size, nodeStack *Stack)
   Stack->top->Coordinate.value = matrix[Stack->Coordinate.y][Stack->Coordinate.x].value;
 
   Cord step;
+  Cord prevStep;
   int counter = 0;
 
   //Enquanto não alcançar a vitória:
@@ -503,6 +404,7 @@ void Percurso(Tile **matrix, int size, nodeStack *Stack)
     
     //O possível passo
     step = selectDirection(matrix,size,nowPosition);
+    
     printf("\n \t%d \t %d  \t\t %d-%d \n", step.y, step.x, nowPosition.y, nowPosition.x);
     printf("\t0   x %c %c\n", matrix[nowPosition.y][nowPosition.x+1].value, matrix[nowPosition.y][nowPosition.x+2].value);
     printf("\t1   %c %c %c\n",matrix[nowPosition.y+1][nowPosition.x].value, matrix[nowPosition.y+1][nowPosition.x+1].value, matrix[nowPosition.y+1][nowPosition.x+2].value);
@@ -510,23 +412,13 @@ void Percurso(Tile **matrix, int size, nodeStack *Stack)
     
     StuckInBeginning(matrix, Stack, step, nowPosition,size);
     
-    // verifica se está preso:
-    // if(step.x == 0 && step.y == 0){
-      
-    //   matrix[nowPosition.y][nowPosition.x].value = '#';
-    //   matrix[nowPosition.y][nowPosition.x].explored = true;
-    //   printf("AQUI TAMBÉM");
-    //   popNode(Stack);
-
-    //   step = selectDirection(matrix,size,nowPosition);
-      
-    // }
-    // else
-    // {
-      
+   // verifica se está preso (voltando de onde veio)
+    if(step.x == (prevStep.x * -1) && step.y == (prevStep.y * -1)){
+      forbiddenWay(matrix, &nowPosition, Stack, &step, size);
+    }
+            
       if(counter == 20)
       {
-
         printf("alooo");
         showNodes(Stack);
         exit(0);
@@ -540,9 +432,7 @@ void Percurso(Tile **matrix, int size, nodeStack *Stack)
 
         counter+=1;
 
-
         /*ATENÇÃO!! TENTANDO DEBUGAR*/
-            
              
         if(counter==10)
         {
@@ -552,15 +442,17 @@ void Percurso(Tile **matrix, int size, nodeStack *Stack)
         }
 
           // usar a função forbiddenWay quando vc estiver cercado de paredes, antes de dar o próximo passo
+
+    /*    if(noWay(matrix, nowPosition,size)){
+          forbiddenWay(matrix, &nowPosition, Stack, &step, size);
+          printf("RESULTADO: x: %d  y: %d  STEP: x: %d y: %d", nowPosition.y, nowPosition.x, step.y , step.x);
+          exit(0);
+        }*/
+
         if (counter>=3)
         {
           printf("explorado? %d valor: %c [x : %d y : %d ]-- %d",(matrix[nowPosition.y][nowPosition.x].explored), matrix[nowPosition.y][nowPosition.x].value, nowPosition.y, nowPosition.x, Stack->size);
           
-        if(noWay(matrix, nowPosition))
-          forbiddenWay(matrix, &nowPosition, Stack, &step, size);
-        printf("RESULTADO: x: %d  y: %d  STEP: x: %d y: %d", nowPosition.y, nowPosition.x, step.y , step.x);
-        exit(0);
-        
         }
         // usar a função forbiddenWay quando vc estiver cercado de paredes, antes de dar o próximo passo
         nowPosition.x += step.x;
@@ -594,7 +486,7 @@ void Percurso(Tile **matrix, int size, nodeStack *Stack)
           }
           else if(matrix[nowPosition.y][nowPosition.x].value != '!')
           {
-            matrix[nowPosition.y][nowPosition.x].explored == true;
+            matrix[nowPosition.y][nowPosition.x].explored = true;
             
             pushNode(Stack, nowPosition);
             printf("\nEXITEI!!2 %d\n", counter);
@@ -604,7 +496,7 @@ void Percurso(Tile **matrix, int size, nodeStack *Stack)
           {
             printf("EXITEI!!3 %d", counter);
             
-            matrix[nowPosition.y][nowPosition.x].explored == true;
+            matrix[nowPosition.y][nowPosition.x].explored = true;
             pushNode(Stack, nowPosition);
             //Emitir relatório;
             exit(0);
@@ -645,9 +537,6 @@ void StartDFS(int size, FILE *input)
 
   //Adicionando Nó com primeira posição:
   pushNode(&Stack, FirstPosition);
-
     
-   
-
   Percurso(matrix, size, &Stack);
 }
