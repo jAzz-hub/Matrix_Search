@@ -23,8 +23,9 @@ typedef struct Tile
 } Tile;
 
 typedef struct Cord {
-  int x;
-  int y;
+  short int x;
+  short int y;
+  unsigned char value;
 } Cord;
 
 typedef struct nodeStack

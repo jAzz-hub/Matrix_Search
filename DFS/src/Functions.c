@@ -53,7 +53,6 @@ void pushNode(nodeStack *previousNode, Cord newNodeCoordinates)
 
 void popNode(nodeStack *Node)
 {
-
   
     //O ponto do topo será igual ao penúltimo ponto empilhado:
   if(!emptyStack(Node))
@@ -61,14 +60,13 @@ void popNode(nodeStack *Node)
       nodeStack *erasedNode = Node->top;
       Node->top = Node->top->before;
       free(erasedNode);
-
+      
       if(Node->top != NULL)
       {
         Node->top->after = NULL;
       }
       
       Node->size-=1;
-      Node->top->size-=1;
     }
   
   
@@ -97,6 +95,7 @@ void showNodes(nodeStack *Node)
     }
   }
 }
+
 
 /// @brief Lê a primeira linha do arquivo input.data
 /// @return  O número de matrizes que serão lidas e o tamanho destas matrizes
@@ -270,93 +269,162 @@ void MatrixRecorder(Tile **matrix, int size, FILE *input)
 /// @param posAtual 
 /// @param passo 
 /// @return 
-bool proximoPasso(Tile **matrix, int size, Cord posAtual, Cord passo){
-  if(posAtual.y + passo.y >= 0 && posAtual.y + passo.y < size){
-    if(posAtual.x + passo.x >= 0 && posAtual.x + passo.x < size){
-      // olha se pose dar mais um passo na direção
-      if(matrix[posAtual.y + passo.y][posAtual.x + passo.x].value != '#'){
+bool proximoPasso(Tile **matrix, int size, Cord posAtual, Cord passo)
+{
+  if(posAtual.y + passo.y >= 0 && posAtual.y + passo.y < size)
+  {
+    if(posAtual.x + passo.x >= 0 && posAtual.x + passo.x < size)
+    {
+      // olha se pode dar mais um passo na direção
+      if(matrix[posAtual.y + passo.y][posAtual.x + passo.x].value != '#')
+      {
         return true;
       }
+      else
+        return false;
     }
   }
-  
-  return false;
 }
 
 Cord selectDirection(Tile **matrix,int size, Cord posAtual){
   // baixo
   if(posAtual.y-1 >= 0 && matrix[posAtual.y-1][posAtual.x].value != '#'){
     if(matrix[posAtual.y][posAtual.x].explored == false){
-      Cord pos = {.y = -1, .x = 0};
+      Cord pos = {.y = -1, .x = 0, .value =  matrix[posAtual.y-1][posAtual.x].value};
       return pos;
     }
   }
   // direita
   else if(posAtual.x+1 < size && matrix[posAtual.y][posAtual.x+1].value != '#'){
     if(matrix[posAtual.y][posAtual.x].explored == false){
-      Cord pos = {.y =0, .x = 1};
+      Cord pos = {.y =0, .x = 1, .value = matrix[posAtual.y][posAtual.x+1].value};
       return pos;
     }
   }
   // cima
   else if(posAtual.y+1 < size && matrix[posAtual.y+1][posAtual.x].value != '#'){
     if(matrix[posAtual.y][posAtual.x].explored == false){
-        Cord pos = {.y = 1 , .x = 0};
+        Cord pos = {.y = 1 , .x = 0, .value = matrix[posAtual.y+1][posAtual.x].value};
         return pos;
     }
   }
   // esquerda
   else if(posAtual.x-1 >= 0 && matrix[posAtual.y][posAtual.x-1].value != '#'){
     if(matrix[posAtual.y][posAtual.x].explored == false){
-      Cord pos = {.y = 0 , .x = -1};
+      Cord pos = {.y = 0 , .x = -1, .value = matrix[posAtual.y][posAtual.x-1].value};
       return pos;
     }
   }
 
-  Cord pos = {.x = 0, .y = 0};
+  Cord pos = {.x = 0, .y = 0, .value = matrix[0][0].value};
   return pos;
 }
 
-void Percurso(Tile **matrix, int size){
-  Cord posAtual = {.x = 0, .y = 0};
+void Percurso(Tile **matrix, int size, nodeStack *Stack)
+{
+  
+  //Tem problema transformar step e now position na mesma variável?
+  
+  Cord nowPosition = {.x = 0, .y = 0};
 
-  /*
-  while(pilha.top() != '!'){
-    pilha.pop();
+  
+  Stack->top->Coordinate.value = matrix[Stack->Coordinate.y][Stack->Coordinate.x].value;
+  
+ 
+  printf("\n\t%d---%d---%c\n",Stack->top->Coordinate.x, Stack->top->Coordinate.y, Stack->top->Coordinate.value);
+  
+  while(Stack->Coordinate.value != '!')
+  {
+    int counter = 0;
+    popNode(Stack);
+    
 
-    Cord passo;
-    passo = selectDirection(matrix,size,posAtual);
+    Cord step;
+    step = selectDirection(matrix,size,nowPosition);
 
-    // verifica se está preso 
-    if(passo.x == 0 && passo.y == 0){
-      matrix[posAtual.y][posAtual.x] = '#';
-
-      // remove o passo anterior
-      posAtual.x -= passoAnterior.x;
-      posAtual.y -= passoAnterior.y;
-      pilha.pop(); 
-
-      passo = selectDirection(matrix,size,posAtual);
-    }
-
-    while(proximoPasso(matrix,size,posAtual,passo) && pilha.top().value != '!'){
-      posAtual.x += passo.x;
-      posAtual.y += passo.y;
+    
+    // verifica se está preso:
+    if(step.x == 0 && step.y == 0){
       
-      if(matrix[posAtual.y][posAtual.x] == '*'){
-        //começa do inicio
-        //pilha.clean()?
-      }
+      matrix[nowPosition.y][nowPosition.x].value = '#';
 
-      if(matrix[posAtual.y][posAtual.x].explored == false){
-        matrix[posAtual.y][posAtual.x].explored == true;
-        pilha.add(matrix[posAtual.y][posAtual.x]);
+      popNode(Stack);
+
+      step = selectDirection(matrix,size,nowPosition);
+      
+    }
+    else
+    {
+      
+  
+      unsigned char top = matrix[nowPosition.x][nowPosition.y].value;
+
+      //Enquanto houver a possibilidade de se caminhar para uma única direção:
+      while(proximoPasso(matrix,size,nowPosition,step) && top != '!')
+      {
+
+        counter+=1;
+
+
+        /*ATENÇÃO!! TENTANDO DEBUGAR*/
+        if(counter==9)
+        {
+          showNodes(Stack);
+          printf("%d %c %d %d",(matrix[nowPosition.y][nowPosition.x].explored), matrix[nowPosition.y][nowPosition.x].value, nowPosition.y, nowPosition.x);
+          exit(0);
+          
+        }      
+             
+        nowPosition.x += step.x;
+        nowPosition.y += step.y;
+        unsigned char top = matrix[nowPosition.x][nowPosition.y].value;
+       
+        if(matrix[nowPosition.y][nowPosition.x].explored == false)
+        {
+
+          
+          if(matrix[nowPosition.y][nowPosition.x].value == '*')
+          {
+            matrix[nowPosition.y][nowPosition.x].value = '1';
+            printf("EXITEI!! %d", counter);
+            exit(0);
+            //começa do inicio
+            //pilha.clean()?
+            //Desempilhar()
+              //Desempilhar exclui todos os valores da pilha e torna essas casas inexploradas:
+          }
+          else if(matrix[nowPosition.y][nowPosition.x].value != '!')
+          {
+            matrix[nowPosition.y][nowPosition.x].explored == true;
+            
+            pushNode(Stack, nowPosition);
+            printf("\nEXITEI!!2 %d\n", counter);
+            
+          }          
+          else
+          {
+            printf("EXITEI!!3 %d", counter);
+            exit(0);
+            matrix[nowPosition.y][nowPosition.x].explored == true;
+            pushNode(Stack, nowPosition);
+            //Emitir relatório;
+            exit(0);
+          }
+
+        }
+
+        else
+        {
+          printf("EXITEI!!");
+          false;
+          exit(0);
+        }
       }
     }
 
-    passoAnterior = passo;
+    // passoAnterior = passo;
 
-  }*/
+  }
 }
 
 /// @brief Realiza uma Deep First Search na matriz contida em input.data 
@@ -373,49 +441,18 @@ void StartDFS(int size, FILE *input)
   //Mostrando a matriz lida:
   MatrixScanner(matrix,size);
   
-  Cord Random;
-  Random.x = 12;
-  Random.y = 12;
-  
-  printf("\n %d %d",Random.x, Random.y);
+  //Criando a pilha com a primeira casa da matriz:
+  Cord FirstPosition = {.x = 0, .y = 0};
 
-  //Criei a pilha:
-  nodeStack firstNode;
-  stackGenerator(&firstNode);
-  bool b = emptyStack(&firstNode);
-  printf("\t%d\n", b); // Espero que dê 1
+  //Variável da pilha:
+  nodeStack Stack;
+  stackGenerator(&Stack);
 
-   //Adicionei 1 nó:
-    pushNode(&firstNode, Random);
-    b = emptyStack(&firstNode);
-    printf("\t%d, %d\n", b, firstNode.size); // Espero que dê 0
+  //Adicionando Nó com primeira posição:
+  pushNode(&Stack, FirstPosition);
 
     
-    Random.x = 13;
-    Random.y = 13;
-       //Adicionei 1 nó:
-    pushNode(&firstNode, Random);
-    b = emptyStack(&firstNode);
-    printf("\t%d, %d\n", b, firstNode.size); // Espero que dê 0
+   
 
-    
-    Random.x = 14;
-    Random.y = 14;
-    pushNode(&firstNode, Random);
-    b = emptyStack(&firstNode);
-    printf("\t%d, %d\n", b, firstNode.size); // Espero que dê 0
-
-    
-    Random.x = 15;
-    Random.y = 15;
-       //Adicionei 1 nó:
-    pushNode(&firstNode, Random);
-    b = emptyStack(&firstNode);
-    printf("\t%d, %d\n", b, firstNode.size); // Espero que dê 0
-
-
-  printf("\n\n");
-  showNodes(&firstNode);
-
-  Percurso(matrix, size);
+  Percurso(matrix, size, &Stack);
 }
