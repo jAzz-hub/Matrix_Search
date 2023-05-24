@@ -137,6 +137,21 @@ referências:
 <br>
 <br>
 
+<br><br>
+## Referências <!--Idea!! CITAR O NÍVIO ZIVIANI-->
+
+[1] Depth First Search (DFS) Explained: Algorithm, Examples, and Code. Disponível em: <https://www.youtube.com/watch?v=PMMc4VsIacU&t=797s>. Acesso em: 23 mai. 2023.
+
+[2] Introdução à Teoria dos Grafos – Aula 5 – Grau de um vértice e o problema das Pontes de Königsberg. Disponível em: <https://www.youtube.com/watch?v=125pPCIRjZ8>. Acesso em: 24 maio. 2023.
+
+[3] PIRES, MICHEL - Repositório GitHub, @mpiress: GenerateDataToMatrix - Disponível em: https://github.com/mpiress/GenerateDataToMatrix/blob/main/src/mat.h. Acessado em 15 de Março de 2023.
+
+[4] GNU make. Disponível em: <https://www.gnu.org/software/make/manual/make.html>. Acessado em XX de Maio de 2023.
+
+[4] GNU Make. Disponível em: <https://www.gnu.org/software/make/>. Acesso em: mai. 23DC.
+
+[6] ALFREDO, A. et al. Grafos. [s.l: s.n.]. Disponível em: <https://homepages.dcc.ufmg.br/~loureiro/md/md_9Grafos.pdf>.
+
 
 https://www.youtube.com/watch?v=s-CYnVz-uh4&t=122s
 
@@ -149,3 +164,18 @@ links úteis:
 
 
 A equipe <a href = "https://github.com/Getulio-Mendes/LabirintoRecorrente">Getúlio</a>, <a href = "https://github.com/rafaegont1/O-labirinto-recorrente">Rafel</a> e <a href = "https://github.com/jAzz-hub/Recurrent_Labyrinth">João</a>
+
+
+## Contato
+<br>
+<dig align="center">
+<a href="https://github.com/rafaegont1">
+<img align="justify" width="20%" height="20%" src="https://img.shields.io/badge/Rafael-000709?style=for-the-badge&logo=github&logoColor=white"/>
+</a>
+<a href="https://github.com/Getulio-Mendes">
+<img align="justify" width="21%" height="20%" src="https://img.shields.io/badge/Getúlio-000709?style=for-the-badge&logo=github&logoColor=white"/>
+</a>
+<a href="https://github.com/jAzz-hub">
+<img align="justify" width="16%" height="10%" src="https://img.shields.io/badge/João-000709?style=for-the-badge&logo=github&logoColor=white"/>
+</a>
+</div>
