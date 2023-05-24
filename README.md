@@ -33,13 +33,17 @@
 
  - [Metodologia](#Metodologia)
     - [Solução](#Solução)
-    - [Desenvolvimento](#Desenvolvimento)
+        - [Arquivos](#Arquivos)
+        - [Funcionamento](#Funcionamento)
+    - [Implementação](#Implementação)
     - [Compilação e Execução](#Compilação-e-Execução)
-    - [Ambiente de Desenvolvimento](#Ambiente-de-Desenvolvimento)
+    - [Ambiente de Desenvolvimento]
+    (#Ambiente-de-Desenvolvimento)
+    
 - [Conclusão](#Conclusão)
     - [Como melhorar a Metodologia?](#Conclusão)
     - [Reavaliando a Implementação do Algoritmo em Matrizes bidimensionais](#Conclusão)
-    - [Referências](#Referências)
+- [Referências](#Referências)
 <br><br>
 
 ## Introdução
