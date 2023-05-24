@@ -13,12 +13,12 @@ int main()
   char *mat;
   bool *vis;
   int mat_sz;
- 
-  start = clock();
 
   read_size(&mat_sz);
   mat = (char *)malloc(mat_sz * mat_sz * sizeof(char));
   vis = (bool *)malloc(mat_sz * mat_sz * sizeof(bool));
+
+  start = clock();
 
   printf("Caminhamento aleatório\n\n");
   read_matrix(mat, mat_sz);
@@ -26,25 +26,38 @@ int main()
   RAND(mat, vis, mat_sz);
   print_matrix(mat, vis, mat_sz);
 
-  printf("Caminhamento DFS\n\n");
+  end = clock();
+  printf("Tempo de execução : %f ms\n",
+      ((double)(end - start))/CLOCKS_PER_SEC*1000);
+
+
+  start = clock();
+
+  printf("\nCaminhamento DFS\n\n");
   read_matrix(mat, mat_sz);
   clear_boolean(vis, mat_sz);
   DFS(mat, vis, mat_sz);
   print_matrix(mat, vis, mat_sz);
 
-  printf("Caminhamento BFS\n\n");
+  end = clock();
+  printf("Tempo de execução : %f ms\n",
+      ((double)(end - start))/CLOCKS_PER_SEC*1000);
+
+
+  start = clock();
+
+  printf("\nCaminhamento BFS\n\n");
   read_matrix(mat, mat_sz);
   clear_boolean(vis, mat_sz);
   BFS(mat, vis, mat_sz);
   print_matrix(mat, vis, mat_sz);
 
+  end = clock();
+  printf("Tempo de execução : %f ms\n",
+      ((double)(end - start))/CLOCKS_PER_SEC*1000);
+
   free(mat);
   free(vis);
  
-  end = clock();
-
-  printf("Tempo de execução: %f ms\n",
-      ((double)(end - start))/CLOCKS_PER_SEC*1000);
-
   return 0;
 }
