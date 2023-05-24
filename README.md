@@ -94,8 +94,11 @@ Este repositório apresenta  a solução para um problema proposto na disciplina
 ### Algoritmos
 -  Os algoritmos para guiar o personagem idealizado, são buscas em largura e em profundidade. Estes algoritmos serão executados nas matrizes bidimensionais utilizadas como entradas no arquivo _`input.data`_.
 
+#### Travessia ou Busca em Grafos
+- O entendimento dos algoritmos DFS e BFS tem grande importância no estudo de algoritmos e estruturas de dados. No estudo de grafos por exemplo, consideramos DFS e BFS formas de percorrer grafos em busca da validação de um percurso entre dois vértices, contagem de trilhas, circuitos e outras inferências sobre estes objetos computacionais.
+
 #### DFS em Grafos
-- Busca em profundiade propõe que uma única linha ou coluna seja percorrida até que se encontre o que se espera. Vale ressaltar que isso ocorre em uma matriz de duas dimensões, em um grafo, ocorre um passeio percorrendo um único vértice de adjascência do vértice atual. Outro vértice ajascente só será visitado quando a busca tiver sido realizada até um vértice de grau 1 onde seu vértice vizinho já foi visitado, ou quando um vértice tem uma única aresta não percorrida sendo esta uma ligação entre o vértice presente e um vértice já visitado. Como pode ser visto um passeio com DFS no grafo abaixo segue a ordem formalmente representada como ${Passeio}: (0, 1, 2, 3, 5, 6)$.
+- Busca em profundiade propõe que em um grafo, um passeio seja realizado. Dado um vértice raiz, ou vértice de início, 1 vértice filho se torna o próximo vértice atual até que não hajam mais vértices filhos vizinhos inexplorados. Após isso o vértice raiz se torna o atual novamente e um novo percurso se inicia. Como pode ser visto um passeio com DFS no grafo abaixo segue a ordem formalmente representada como ${Passeio}: (0, 1, 2, 3, 5, 6)$.
 
 
 <div align = "center" >
@@ -130,6 +133,10 @@ ____________________________________________
 <br>Criada usando o Canva², Disponível no <a href="https://www.canva.com/design/DAFd8EjV-8w/M4fX0cOTTduzNNPJxuF73Q/edit?utm_content=DAFd8EjV-8w&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton">Link</a>.
 </div>
 
+#### BFS em Grafos
+Busca em largura propõe que as linhas ou colunas seja percorrida até que se encontre o que se espera. Vale ressaltar que isso ocorre em uma matriz de duas dimensões, em um grafo, ocorre um passeio percorrendo um único vértice de adjascência do vértice atual. Outro vértice ajascente só será visitado quando a busca tiver sido realizada até um vértice de grau 1 onde seu vértice vizinho já foi visitado, ou quando um vértice tem uma única aresta não percorrida sendo esta uma ligação entre o vértice presente e um vértice já visitado. Como pode ser visto um passeio com DFS no grafo abaixo segue a ordem formalmente representada como ${Passeio}: (0, 1, 2, 3, 5, 6)$.
+
+#### BFS em Matrizes Bidimensionais
 
 <br>
 <br>
@@ -148,7 +155,7 @@ referências:
 
 [4] GNU make. Disponível em: <https://www.gnu.org/software/make/manual/make.html>. Acessado em XX de Maio de 2023.
 
-[4] GNU Make. Disponível em: <https://www.gnu.org/software/make/>. Acesso em: mai. 23DC.
+[5] GNU Make. Disponível em: <https://www.gnu.org/software/make/>. Acesso em: mai. 23DC.
 
 [6] ALFREDO, A. et al. Grafos. [s.l: s.n.]. Disponível em: <https://homepages.dcc.ufmg.br/~loureiro/md/md_9Grafos.pdf>.
 
