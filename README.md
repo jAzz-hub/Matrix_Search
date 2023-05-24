@@ -173,7 +173,7 @@ ____________________________________________
 
 <br>
  
- - Observa-se que em 3 iterações utilizando o BFS,é possível inferir a menor distância entre alguns $v0$ e $v3$ ou $v0$ e $v4$. Mais especificamente a ditância é de 2 arestas nos respectivos percursos $ P_{v0,v4} = (0,1,4)$ ou $P_{v0,v3} = (0,2,3)$. Faça um exercício e tente observar este padrão se repetindo no vídeo abaixo:
+ - Observa-se que em 3 iterações utilizando o BFS,é possível inferir a menor distância entre alguns $v0$ e $v3$ ou $v0$ e $v4$. Mais especificamente a ditância é de 2 arestas nos respectivos percursos $P_{v0,v4} = (0,1,4)$ ou $P_{v0,v3} = (0,2,3)$. Faça um exercício e tente observar este padrão se repetindo no vídeo abaixo:
 
 <div align = "center" >
 <br>
