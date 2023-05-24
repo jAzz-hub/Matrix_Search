@@ -98,24 +98,40 @@ Este repositório apresenta  a solução para um problema proposto na disciplina
 - O entendimento dos algoritmos DFS e BFS tem grande importância no estudo de algoritmos e estruturas de dados. No estudo de grafos por exemplo, consideramos DFS e BFS formas de percorrer grafos em busca da validação de um percurso entre dois vértices, contagem de trilhas, circuitos e outras inferências sobre estes objetos computacionais.
 
 #### DFS em Grafos
-- Busca em profundiade propõe que em um grafo, um passeio seja realizado. Dado um vértice raiz, ou vértice de início, 1 vértice filho se torna o próximo vértice atual até que não hajam mais vértices filhos vizinhos inexplorados. Após isso o vértice raiz se torna o atual novamente e um novo percurso se inicia. Como pode ser visto um passeio com DFS no grafo abaixo segue a ordem formalmente representada como ${Passeio}: (0, 1, 2, 3, 5, 6)$.
+- Considerando um passeio realizado em um grafo finito, DFS funciona da seguinte forma. Dado um vértice raiz, ou vértice de início, 1 vértice filho se torna o próximo vértice atual até que não hajam mais vértices filhos vizinhos inexplorados. Após isso o vértice raiz se torna o atual novamente e um novo percurso se inicia. Como pode ser visto um passeio com DFS no grafo abaixo segue a ordem formalmente representada como ${Passeio}: (0, 1, 2, 3, 5, 6)$.
 
 
 <div align = "center" >
 <br>
-<strong>Figura 1 -</strong> DFS em grafo
+<strong>Figura 1 -</strong> DFS no Grafo 1
 <br>
 <img src="./DFS/img/DFS_Walk.png" height="78%" width="78%">
 <br>
-Fonte: Vídeo¹.
+Fonte: Imagem¹.
 <br>
 ____________________________________________
-<br>Criada usando o Canva assistir ao vídeo¹, Disponível no <a href="https://www.canva.com/design/DAFd8EjV-8w/M4fX0cOTTduzNNPJxuF73Q/edit?utm_content=DAFd8EjV-8w&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton">Link</a>.
+<br>Criada usando o Canva assistir ao vídeo¹, Disponível no <a href="https://www.canva.com/design/DAFd8EjV-8w/M4fX0cOTTduzNNPJxuF73Q/edit?utm_content=DAFd8EjV-8w&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton">link</a>.
 </div>
 
 
 <br>
-Observa-se que os vértices circulados de vermelho são vértices com adjascencia em vértices já visitados ou de grau 1, ou seja, isolados.
+Observa-se que os vértices circulados de vermelho na imagem são vértices com adjascencia em vértices já visitados. Agora observe o vídeo abaixo:
+
+<div align = "center" >
+<br>
+<strong>Vídeo 1 -</strong> DFS no Grafo 1
+<br>
+<img src="./DFS/img/DFS.gif" height="78%" width="78%">
+<br>
+Fonte: Vídeo¹.
+<br>
+____________________________________________
+<br>Criada usando o graphonline após assistir ao vídeo¹, Disponível no <a href="https://www.canva.com/design/DAFd8EjV-8w/M4fX0cOTTduzNNPJxuF73Q/edit?utm_content=DAFd8EjV-8w&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton">link</a>.
+</div>
+
+
+<br>
+
 
 
 #### DFS em Matrizes Bidimensionais
@@ -130,11 +146,43 @@ Observa-se que os vértices circulados de vermelho são vértices com adjascenci
 Fonte: Construção pelo autor².
 <br>
 ____________________________________________
-<br>Criada usando o Canva², Disponível no <a href="https://www.canva.com/design/DAFd8EjV-8w/M4fX0cOTTduzNNPJxuF73Q/edit?utm_content=DAFd8EjV-8w&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton">Link</a>.
+<br>Criada usando o Canva², Disponível no <a href="https://www.canva.com/design/DAFd8EjV-8w/M4fX0cOTTduzNNPJxuF73Q/edit?utm_content=DAFd8EjV-8w&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton">link</a>.
 </div>
 
 #### BFS em Grafos
-Busca em largura propõe que as linhas ou colunas seja percorrida até que se encontre o que se espera. Vale ressaltar que isso ocorre em uma matriz de duas dimensões, em um grafo, ocorre um passeio percorrendo um único vértice de adjascência do vértice atual. Outro vértice ajascente só será visitado quando a busca tiver sido realizada até um vértice de grau 1 onde seu vértice vizinho já foi visitado, ou quando um vértice tem uma única aresta não percorrida sendo esta uma ligação entre o vértice presente e um vértice já visitado. Como pode ser visto um passeio com DFS no grafo abaixo segue a ordem formalmente representada como ${Passeio}: (0, 1, 2, 3, 5, 6)$.
+
+- Considerando um passeio realizado em um grafo finito, BFS funciona da seguinte forma. Dado um vértice raiz, ou vértice de início, cada um de seus vértices adjascentes serão explorados e usados como próximos vértices atuais.Tendo estes como vértices vizinhos, na nova iteração estes terão seus adjascentes como percorridos e assim sucessivamente. A busca em largura encerra quando todos os vértices de um grafo tiverem sido percorridos.Um fato interessante do BFS é que a pesquisa em largura permite inferir qual o menor caminho entre dois vértices no momento em que ambos estiverem sido percorridos na busca.Observe como isso acontece no vídeo e na imagem abaixo ${Passeio}: (1, 2, 3, 4, 5, 6, 7, 8, 9, 10)$. Considere que na imagem houveram apenas 3 iterações de busca em largura.
+
+<div align = "center" >
+<br>
+<strong>Figura 3 -</strong> BFS no Grafo 1
+<br>
+<img src = "./DFS/img/BFS_walk.png" height = "78%" width = "78%">
+
+<br>
+Fonte: Figura³.
+<br>
+____________________________________________
+<br>Criada usando o Canva assistir ao vídeo², Disponível no <a href="https://www.canva.com/design/DAFd8EjV-8w/M4fX0cOTTduzNNPJxuF73Q/edit?utm_content=DAFd8EjV-8w&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton">link</a>.
+</div>
+
+<br>
+ 
+ - Observa-se que em 3 iterações utilizando o BFS,é possível inferir a menor distância entre alguns $v0$ e $v3$ ou $v0$ e $v4$. Mais especificamente a ditância é de 2 arestas nos respectivos percursos $ P_{v0,v4} = (0,1,4)$ ou $P_{v0,v3} = (0,2,3)$. Faça um exercício e tente observar este padrão se repetindo no vídeo abaixo:
+
+<div align = "center" >
+<br>
+<strong>Vídeo 1 -</strong> DFS no Grafo 1
+<br>
+<img src="./DFS/img/BFS.gif" height="78%" width="78%">
+<br>
+Fonte: Vídeo¹.
+<br>
+____________________________________________
+<br>Criada usando o graphonline após assistir ao vídeo¹, Disponível no <a href="https://www.canva.com/design/DAFd8EjV-8w/M4fX0cOTTduzNNPJxuF73Q/edit?utm_content=DAFd8EjV-8w&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton">link</a>.
+</div>
+
+<br>
 
 #### BFS em Matrizes Bidimensionais
 
@@ -149,15 +197,20 @@ referências:
 
 [1] Depth First Search (DFS) Explained: Algorithm, Examples, and Code. Disponível em: <https://www.youtube.com/watch?v=PMMc4VsIacU&t=797s>. Acesso em: 23 mai. 2023.
 
-[2] Introdução à Teoria dos Grafos – Aula 5 – Grau de um vértice e o problema das Pontes de Königsberg. Disponível em: <https://www.youtube.com/watch?v=125pPCIRjZ8>. Acesso em: 24 maio. 2023.
+[2] Breadth First Search (BFS): Visualized and Explained. Disponível em: <https://www.youtube.com/watch?v=xlVX7dXLS64>. Acesso em: 24 maio. 2023.
 
-[3] PIRES, MICHEL - Repositório GitHub, @mpiress: GenerateDataToMatrix - Disponível em: https://github.com/mpiress/GenerateDataToMatrix/blob/main/src/mat.h. Acessado em 15 de Março de 2023.
+[3] Create Graph online and find shortest path or use other algorithm. Disponível em: <https://graphonline.ru/en/>.
 
-[4] GNU make. Disponível em: <https://www.gnu.org/software/make/manual/make.html>. Acessado em XX de Maio de 2023.
 
-[5] GNU Make. Disponível em: <https://www.gnu.org/software/make/>. Acesso em: mai. 23DC.
+[4] Introdução à Teoria dos Grafos – Aula 5 – Grau de um vértice e o problema das Pontes de Königsberg. Disponível em: <https://www.youtube.com/watch?v=125pPCIRjZ8>. Acesso em: 24 maio. 2023.
 
-[6] ALFREDO, A. et al. Grafos. [s.l: s.n.]. Disponível em: <https://homepages.dcc.ufmg.br/~loureiro/md/md_9Grafos.pdf>.
+[5] PIRES, MICHEL - Repositório GitHub, @mpiress: GenerateDataToMatrix - Disponível em: https://github.com/mpiress/GenerateDataToMatrix/blob/main/src/mat.h. Acessado em 15 de Março de 2023.
+
+[6] GNU make. Disponível em: <https://www.gnu.org/software/make/manual/make.html>. Acessado em XX de Maio de 2023.
+
+[7] GNU Make. Disponível em: <https://www.gnu.org/software/make/>. Acesso em: mai. 23DC.
+
+[8] ALFREDO, A. et al. Grafos. [s.l: s.n.]. Disponível em: <https://homepages.dcc.ufmg.br/~loureiro/md/md_9Grafos.pdf>.
 
 
 https://www.youtube.com/watch?v=s-CYnVz-uh4&t=122s
