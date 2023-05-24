@@ -44,21 +44,3 @@ void QueueClear(Queue *q) {
 
   q->last = NULL;
 }
-
-// void QueuePrint(Queue *q) {
-//   if(!q->first) {
-//     puts("A pilha está vazia!");
-//     return;
-//   }
-// 
-//   QueueBlock *tmp = q->first;
-// 
-//   puts("Imprimindo a pilha:"
-//        "x\ty");
-// 
-//   while(tmp) {
-//     printf("%d\t%d\n",
-//         tmp->data.x, tmp->data.y);
-//     tmp = tmp->next;
-//   }
-// }
