@@ -16,9 +16,6 @@ void BFS(char *mat, bool *vis, int mat_sz) {
 
     QueuePop(&q);
 
-    //printf("%c ", mat[mat_sz * data.y + data.x]);
-
-    // Go to the adjacent cells
     for (int i = 0; i < 4; i++) {
       int mX = data.x + dH[i];
       int mY = data.y + dV[i];
@@ -31,8 +28,6 @@ void BFS(char *mat, bool *vis, int mat_sz) {
         continue;
 
       if(mat[index] == '*') {
-        //puts("*");
-
         mat[index] = '1';
 
         clear_boolean(vis, mat_sz);
@@ -43,7 +38,6 @@ void BFS(char *mat, bool *vis, int mat_sz) {
 
         break;
       } else if(mat[index] == '?') {
-        //puts("?\n\nO objetivo foi encontrado!\n");
         vis[index] = true;
 
         return;
@@ -53,34 +47,4 @@ void BFS(char *mat, bool *vis, int mat_sz) {
       }
     }
   }
-  //puts("\nNão foi possível encontrar o objetivo");
 }
-
-// int main()
-// {
-//   clock_t start, end;
-//   char *mat;
-//   bool *vis;
-//   int mat_sz;
-//  
-//   start = clock();
-// 
-//   read_size(&mat_sz);
-//   mat = (char *)malloc(mat_sz * mat_sz * sizeof(char));
-//   vis = (bool *)malloc(mat_sz * mat_sz * sizeof(bool));
-//   read_matrix(mat, mat_sz);
-//   clear_boolean(vis, mat_sz);
-//   print_matrix(mat, mat_sz);
-//   BFS(mat, mat_sz, vis);
-//   print_boolean(vis, mat_sz);
-// 
-//   free(mat);
-//   free(vis);
-//  
-//   end = clock();
-// 
-//   printf("Tempo de execução: %f ms\n",
-//       ((double)(end - start))/CLOCKS_PER_SEC*1000);
-// 
-//   return 0;
-// }
