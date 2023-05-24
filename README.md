@@ -21,13 +21,15 @@
  - [Introdução](#Introdução)
     - [Contextualizando os Algoritmos](#contextualizando-os-algoritmos)
 
- - [Contexto](#contexto)
+ - [Fundamentação Teórica](#Fundamentação-Teórica)
     - [Estruturas de Dados](#Estruturas-de-Dados)
     - [Algoritmos](#Algoritmos)
         - [DFS em Grafos](#DFS-em-Grafos)
         - [DFS em Matrizes Bidimensionais](#DFS-em-Matrizes-Bidimensionais)
+        - [BFS em Grafos](#BFS-em-Grafos)
+        - [BFS em Matrizes Bidimensionais](#BFS-em-Matrizes-Bidimensionais)
 
- - [Objetivos](#Objetivoss)
+ - [Objetivos](#Objetivos)
 
  - [Metodologia](#Metodologia)
     - [Solução](#Solução)
@@ -50,6 +52,10 @@ Este repositório apresenta  a solução para um problema proposto na disciplina
 - $V$ - Conjunto de vértices de um grafo.
 
 - $E$ - Conjunto de arestas de um grafo.
+
+- $n_{v}$ - Número de vértices em um percurso.
+
+- $n_{e}$ - Número de arestas em um percurso.
 
 - $K$ - Número de matrizes de entrada presentes no arquivo `input.data`.
 
@@ -82,7 +88,7 @@ Este repositório apresenta  a solução para um problema proposto na disciplina
     -   Laranja: Posição atual ou inicial.
     -   Rosa: Posição futura escolhida.
 
-## Contexto
+## Fundamentação Teórica
 - Para contextualizar o funcionamento do algoritmo, considere que um personagem caminha por um labirinto até encontrar uma saída definida por um ponto de interrogação:
     - O personagem representa uma abstração para uma busca realizada em uma matriz, essa busca se encerra quando o elemento $!$ é encontrado.
     -   O caracter $*$ representa uma casa que reiniciar a pesquisa. Isso significa que, se o personagem passa pelo elemento $a_{ij} = *$, este haverá de reiniciar sua busca da posição $a_{00}$. Além disso o caminho entre $a_{ij}$ e $a_{00}$ será considerado como não percorrido.
@@ -103,11 +109,11 @@ Este repositório apresenta  a solução para um problema proposto na disciplina
 
 <div align = "center" >
 <br>
-<strong>Figura 1 -</strong> DFS no Grafo 1
+<strong>Figura 1 -</strong> DFS no Grafo
 <br>
 <img src="./DFS/img/DFS_Walk.png" height="78%" width="78%">
 <br>
-Fonte: Imagem¹.
+Fonte: Construção pelo autor¹.
 <br>
 ____________________________________________
 <br>Criada usando o Canva assistir ao vídeo¹, Disponível no <a href="https://www.canva.com/design/DAFd8EjV-8w/M4fX0cOTTduzNNPJxuF73Q/edit?utm_content=DAFd8EjV-8w&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton">link</a>.
@@ -119,11 +125,11 @@ Observa-se que os vértices circulados de vermelho na imagem são vértices com 
 
 <div align = "center" >
 <br>
-<strong>Vídeo 1 -</strong> DFS no Grafo 1
+<strong>Vídeo 1 -</strong> DFS no Grafo
 <br>
 <img src="./DFS/img/DFS.gif" height="78%" width="78%">
 <br>
-Fonte: Vídeo¹.
+Fonte: Construção pelo autor².
 <br>
 ____________________________________________
 <br>Criada usando o graphonline após assistir ao vídeo¹, Disponível no <a href="https://www.canva.com/design/DAFd8EjV-8w/M4fX0cOTTduzNNPJxuF73Q/edit?utm_content=DAFd8EjV-8w&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton">link</a>.
@@ -133,9 +139,8 @@ ____________________________________________
 <br>
 
 
-
 #### DFS em Matrizes Bidimensionais
-- Já em matrizes bidimensionais a DFS percorre uma linha ou coluna até que encontre um caracter que a faça reorientar a busca em outra direção. As direções escolhidas não podem fazer com que a busca passe em um elemento da matriz que já foi visitado previamente. Observe como a DFS percorre um coluna por completo e tem uma seta vermelha representando que não pode se mover para $a_{10}$ pois essa posição já foi percorrida previamente.
+- Já em matrizes bidimensionais a DFS percorre uma linha ou coluna até que encontre um caracter que a faça reorientar a busca em outra direção(A reorientação acontece quando a busca identifica uma parede ou posição já percorrida anteriormente, portanto não se moverá para lá). As direções escolhidas não podem fazer com que a busca passe em um elemento da matriz que já foi visitado previamente. Observe como a DFS percorre um coluna por completo e tem uma seta vermelha representando que não pode se mover para $a_{10}$ pois essa posição já foi percorrida previamente.
 
 <div align = "center" >
 <br>
@@ -143,10 +148,10 @@ ____________________________________________
 <br>
 <img src = "./DFS/img/DFS_MATRIX.png">
 <br>
-Fonte: Construção pelo autor².
+Fonte: Construção pelo autor³.
 <br>
 ____________________________________________
-<br>Criada usando o Canva², Disponível no <a href="https://www.canva.com/design/DAFd8EjV-8w/M4fX0cOTTduzNNPJxuF73Q/edit?utm_content=DAFd8EjV-8w&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton">link</a>.
+<br>Criada usando o Canva¹, Disponível no <a href="https://www.canva.com/design/DAFd8EjV-8w/M4fX0cOTTduzNNPJxuF73Q/edit?utm_content=DAFd8EjV-8w&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton">link</a>.
 </div>
 
 #### BFS em Grafos
@@ -155,12 +160,12 @@ ____________________________________________
 
 <div align = "center" >
 <br>
-<strong>Figura 3 -</strong> BFS no Grafo 1
+<strong>Figura 3 -</strong> BFS no Grafo
 <br>
 <img src = "./DFS/img/BFS_walk.png" height = "78%" width = "78%">
 
 <br>
-Fonte: Figura³.
+Fonte: Construção pelo autor⁴.
 <br>
 ____________________________________________
 <br>Criada usando o Canva assistir ao vídeo², Disponível no <a href="https://www.canva.com/design/DAFd8EjV-8w/M4fX0cOTTduzNNPJxuF73Q/edit?utm_content=DAFd8EjV-8w&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton">link</a>.
@@ -172,19 +177,35 @@ ____________________________________________
 
 <div align = "center" >
 <br>
-<strong>Vídeo 1 -</strong> DFS no Grafo 1
+<strong>Vídeo 2 -</strong> BFS no Grafo
 <br>
 <img src="./DFS/img/BFS.gif" height="78%" width="78%">
 <br>
-Fonte: Vídeo¹.
+Fonte: Construção pelo autor⁵.
 <br>
 ____________________________________________
-<br>Criada usando o graphonline após assistir ao vídeo¹, Disponível no <a href="https://www.canva.com/design/DAFd8EjV-8w/M4fX0cOTTduzNNPJxuF73Q/edit?utm_content=DAFd8EjV-8w&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton">link</a>.
+<br>Criada usando o graphonline após assistir ao vídeo², Disponível no <a href="https://www.canva.com/design/DAFd8EjV-8w/M4fX0cOTTduzNNPJxuF73Q/edit?utm_content=DAFd8EjV-8w&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton">link</a>.
 </div>
 
 <br>
 
 #### BFS em Matrizes Bidimensionais
+
+- Já em matrizes bidimensionais a BFS percorre todas as casas adjascentes à(s) casa(s) presente(s) por iteração de pesquisa. As direções escolhidas não podem fazer com que a busca passe em um elemento pesquisado. Perceba que a seta vermelha representa que não pode se mover para $a_{02}$ pois essa posição possui uma parede.
+
+<div align = "center" >
+<br>
+<strong>Figura 4 -</strong> DFS em Matriz
+<br>
+<img src = "./DFS/img/BFS_MATRIZ.png" height = "78%" width = "78%">
+<br>
+Fonte: Construção pelo autor⁶.
+<br>
+____________________________________________
+<br>Criada usando o Canva⁶, Disponível no <a href="https://www.canva.com/design/DAFd8EjV-8w/M4fX0cOTTduzNNPJxuF73Q/edit?utm_content=DAFd8EjV-8w&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton">link</a>.
+</div>
+
+- Observe como a BFS percorre casas adjascentes rapidamente em apenas 3 iterações. Enquanto isso a DFS foca ir em somente uma "direção" da matriz, ou seja, matemáticamente este percorreria vários vértices rapidamente, onde a distância entre eles depende de $n_{v}$ vértices vizinhos, portanto de $n_{e}-1$ arestas, afinal o percurso realizado gera um subgrafo onde todos os vértices tem grau $1$. Portanto BFS verifica vértices próximos(com arestas em comum) muito rapidamente, já o DFS pesquisa entre vértices distantes rapidamente. Com isso cada um destes é melhor para uma situação específica.
 
 <br>
 <br>
