@@ -36,19 +36,15 @@
         - [Arquivos](#Arquivos)
         - [Funcionamento](#Funcionamento)
     - [Implementação](#Implementação)
-    - [Compilação e Execução](#Compilação-e-Execução)
-<<<<<<< HEAD
-    - [Ambiente de Desenvolvimento](#Ambiente-de-Desenvolvimento)
-
-=======
-    - [Ambiente de Desenvolvimento]
-    (#Ambiente-de-Desenvolvimento)
     
->>>>>>> c137182f8c57bd52b5aa68a969d4fc399bbed349
 - [Conclusão](#Conclusão)
     - [Como melhorar a Metodologia?](#Conclusão)
     - [Reavaliando a Implementação do Algoritmo em Matrizes bidimensionais](#Conclusão)
 - [Referências](#Referências)
+
+
+- [Compilação e Execução](#Compilação-e-Execução)
+- [Ambiente de Desenvolvimento](#Ambiente-de-Desenvolvimento)
 <br><br>
 
 ## Introdução
@@ -276,22 +272,165 @@ ____________________________________________
 
 - `Stack.h` : Contém a assinatura das funções de `Stack.c` e a implementação da estrutura de uma pilha.
 
+- `main.c` : Contém a execução das 3 funções principais _**RAND**_, _**DFS**_ e _**BFS**_ tendo seus respectivos tempos de execução sendo mensurados.
 
+### Funcionamento
 
+ #### 1. Primeira Leitura do arquivo
+  A leitura das entradas do arquivo `input.data` é realizada apenas 1 vez, em primeiro lugar o código reconhece qual a ordem da matriz presente no arquivo, isso será realizado respectivamente pelas funções _**read_size**_ e _**read_matrix**_.
 
+  A função _**read_size**_ é responsável por ler a primeira linha do arquivo de entrada e retornar $N$, já _**read_matrix**_ é responsável por ler os valores do arquivo e salvar em uma matriz. 
 
-- `structures.h` : Contém as estruturas e chamadas de bibliotecas utilizadas e assinaturas das funções do programa.
+ #### 2 Percorrendo a Matriz
+  Há três formas de percorrer a matriz, são elas as funções _**RAND**_, _**DFS**_ e _**BFS**_. Todas estas funções param suas iterações quando o caracter $?$ está em um elemento contido na posição presente. Além disso quando o caracter na posição atual for igual a $*$ todas as funções apagam o caminho realizado entre $a_{00}$ e $a_{ij}$ tendo $i$ e $j$ atuais como referência e reiniciam as iterações partindo de novo do elemento ou posição $a_{00}$.
 
-- `main.c` : Contém uma série de funções e declaração de variáveis que façam com que a busca pela matriz seja realizada devidamente.
+- Iterações na função _**DFS**_
+  - A função _**DFS**_ adiciona a posição atual à uma pilha, ou seja, a casa 0,0.
+  - À partir disso cada elemento adjascente será verificado como um elemento que pode ser adicionado a fila ou não (Os elementos adicionados à fila são $a_{ij}$ diferentes de $*$, #, $?$ ou que ainda não tenham sido exploradas). 
+  - A verificação de casas adjascentes prioriza a posição que se encontra abaixo do elemento atual, diante disso enquanto a pilha não está vazia adiciona-se a primeira posição verificada disponível nesta pilha.
+  - Elementos acessados a cada iteração são sempre adicionados no topo da pilha. 
+  - Quando 4 posições adjascentes são verificadas de modo que as 4 sejam inacessíveis o algoritmo coloca uma parede na matriz onde estaria sua posição atual. 
+  - Além disso ao se encontrar preso a posição do topo da pilha é exluída, portanto a penúltima posição da estrutura se torna a atual.
+  
+- Iterações na função _**BFS**_
+  - A função _**BFS**_ adiciona a posição atual à uma fila, ou seja, a casa 0,0. 
+  - À partir disso cada elemento adjascente será verificado como um elemento que pode ser adicionado a fila (Os elementos adicionados à fila são $a_{ij}$ diferentes de $*$, #, $?$ ou que ainda não tenham sido exploradas).Isso é feito enquanto a fila não está vazia.
+  - Os elementos acessados a cada iteração serão adicionados no da fila(Caso atendam às premissas descritas previamente) e a cada iteração 1 elemento será removido da mesma.
+  
+- Iterações na função _**random_walk**_
+    - A função _**random_walk**_ verifica posições adjascentes à posição atual através do acesso aleatório destas.
+    
+    - Toda vez que uma posição é sorteada e apresenta uma posição livre para se percorrer a posição atual se torna esta posição.
+    
+    - Dito isto o procedimento será realizado até que o caracter $?$ seja encontrado.
+ 
+ #### 2.3 Casos especiais
+O programa não trata casos especiais onde a posição inicial se encontre cercada por paredes inicialmente. Portanto o caso da imagem abaixo pode trazer problemas de execução:
 
+<div align="center">
+<strong>Figura 6</strong> - input.data    
+<br>
 
-
+<img src = "./DFS/img/workingBadWith.png" height = "78%" width = "78%">
 
 <br>
-referências:
+Fonte: Construção pelo autor⁸.
 <br>
+____________________________________________
+<br>Criada usando o Canva⁸, Disponível no <a href="https://www.canva.com/design/DAFd8EjV-8w/M4fX0cOTTduzNNPJxuF73Q/edit?utm_content=DAFd8EjV-8w&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton">link</a>.
+</div>
+<br>
+
+ 
+#### Implementação 2.4
+O programa armazena o tempo de execução das funções de pesquisa em variáveis do `main.c` chamando a função _**clock()**_ antes e depois de da chamada de cada uma das funções. Isso permite que haja uma mensuração de complexidade considerando o ambiente de execução no momento em que o comando _**make run**_ é executado por um sistema operacional contido em uma máquina específica. Diante disso dada a entrada contida na **Figura 6** temos a saída demonstrada em **Figura 7**, **Figura 8** e **Figura 9**.
+
+
+
+ <div align="center">
+<strong>Figura 7</strong> - Saída da busca aletória, tempo de execução: 17.686000 ms    
+<br>
+
+<img src = "./DFS/img/outputAleatorio.jpeg" height = "78%" width = "78%">
+
+<br>
+Fonte: Captura de tela feita pelo autor⁸.
+<br>
+____________________________________________
+<br>Captura de tela do computador do autor. Disponível em⁸, Disponível no <a href="">link</a>.
+</div>
+<br>
+
+ <div align="center">
+<strong>Figura 8</strong> - Saída da busca DFS, tempo de execução: 0.534000 ms    
+<br>
+
+<img src = "./DFS/img/outputDFS.jpeg" height = "78%" width = "78%">
+
+<br>
+Fonte: Captura de tela feita pelo autor⁹.
+<br>
+____________________________________________
+<br>Captura de tela do computador do autor. Disponível em⁹, Disponível no <a href="">link</a>.
+</div>
+<br>
+
+ <div align="center">
+<strong>Figura 9</strong> - Saída da busca BFS, tempo de execução: 9.183000 ms    
+<br>
+
+<img src = "./DFS/img/outputBFS.jpeg" height = "78%" width = "78%">
+
+<br>
+Fonte: Captura de tela feita pelo autor¹⁰.
+<br>
+____________________________________________
+<br>Captura de tela do computador do autor. Disponível em¹⁰, Disponível no <a href="">link</a>.
+</div>
+<br>
+
+
+## Conclusão
+### Por Qual Motivo Utilizar Matrizes Bidimensionais?
+Como foi dito anteriormente o problema pode ser resolvido de diversas formas, uma delas é usufruindo de grafos. As relações entre vértices permitem inferências matemáticas mais plurais e complexas que as propostas aqui. Considerando que implementações realizadas aqui se restringem ao percorrimento de um espaço muito grande, a implementação de uma estrutura de dados tão complexa quanto o grafo poderia ser um custo desnecessário. Portanto os grafos não foram uma indicação nem uma escolha para solucionar o problema proposto.
+
+### Comparações Entre as Formas de Caminhamento
+ Diante das diferentes entradas propostas, o número e posições dos caracteres #, *, $1$ e ? foram alterados, com isso percebemos que em casos muito raros o BFS se torna mais rápido que o DFS. Além de tudo percebemos que o caminhamento aleatório é mais lento que ambos na maioria dos casos também. Em casos onde a interrogação se aproxima das casas inicias e paredes fazem o DFS andar para a região onde o valor de $i$ dos elementos $a_{ij}$ tende a se aproximar do valor de $N$, temos o BFS mais rápido, depois normalmente o aleatório e por último o DFS por exemplo. Contúdo vale ressaltar que ainda nestes casos o DFS ganhar no percorrimento destas estruturas por muito pouco. Mais especificamente uma diferença próxima de 1 segundo.
+
+
+
+## Compilação e Execução
+Para compilação e execução do código é necessário que seja criado um arquivo Makefile. Para uso deste arquivo da forma correta, siga as diretrizes de execução abaixo:
+
+<table>
+
+<tr>
+<td colspan = '1'><strong>Comandos</strong></td>
+<td align = "center" colspan = '1'><strong>Funções</strong></td>
+</tr>
+
+<tr>
+<td align="center"><strong><i>make clean</i></strong>
+</td>
+<td align="center">Deleta o arquivo executável e todos os arquivos objetos do diretório. (FREE SOFTWARE FOUNDATION, GNU make, 2023)</td>
+</tr>
+<tr>
+<td align="center"><strong><i>make</i></strong></td>
+<td align="center">Compila diferentes partes do programa através do g++ e cria um arquivo executável na pasta build. </td>
+</tr>
+<tr>
+<td align="center"><strong><i>make run</i></strong></td>
+<td align="center">Executa o programa da pasta build após a realização da compilação. (PIRES, MICHEL, 2023)</td>
+</tr>
+</table>
+
+## Ambiente de desenvolvimento:
+O código foi desenvolvido e testado no seguinte ambiente de desenvolvimento:
+
+<table>
+<tr>
+<td colspan = '1' align="center"><strong>Peças</strong></td>
+<td align = "center" colspan = '1'><strong>Especificações</strong></td>
+</tr>
+
+<tr>
+<td align="center"><strong><i>Processador</i></strong>
+</td>
+<td align="center">Intel(R) Core(TM) i5-3340M CPU @ 2.70GHz</td>
+</tr>
+<tr>
+<td align="center"><strong><i>Memória RAM</i></strong></td>
+<td align="center">8 GB </td>
+</tr>
+<tr>
+<td align="center"><strong><i>Sistema Operacional</i></strong></td>
+<td>Debian GNU/Linux 11 (bullseye)</td>
+</tr>
+</table>
+
 
 <br><br>
+
 ## Referências <!--Idea!! CITAR O NÍVIO ZIVIANI-->
 
 [1] Depth First Search (DFS) Explained: Algorithm, Examples, and Code. Disponível em: <https://www.youtube.com/watch?v=PMMc4VsIacU&t=797s>. Acesso em: 23 mai. 2023.
@@ -312,17 +451,6 @@ referências:
 [8] ALFREDO, A. et al. Grafos. [s.l: s.n.]. Disponível em: <https://homepages.dcc.ufmg.br/~loureiro/md/md_9Grafos.pdf>.
 
 
-https://www.youtube.com/watch?v=s-CYnVz-uh4&t=122s
-
-https://www.youtube.com/watch?v=xlVX7dXLS64
-
-https://www.youtube.com/watch?v=125pPCIRjZ8
-
-links úteis:
-"https://graphonline.ru/pt/"
-
-
-A equipe <a href = "https://github.com/Getulio-Mendes/LabirintoRecorrente">Getúlio</a>, <a href = "https://github.com/rafaegont1/O-labirinto-recorrente">Rafel</a> e <a href = "https://github.com/jAzz-hub/Recurrent_Labyrinth">João</a>
 
 
 ## Contato
