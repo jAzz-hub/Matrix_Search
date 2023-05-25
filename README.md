@@ -37,8 +37,14 @@
         - [Funcionamento](#Funcionamento)
     - [Implementação](#Implementação)
     - [Compilação e Execução](#Compilação-e-Execução)
+<<<<<<< HEAD
     - [Ambiente de Desenvolvimento](#Ambiente-de-Desenvolvimento)
 
+=======
+    - [Ambiente de Desenvolvimento]
+    (#Ambiente-de-Desenvolvimento)
+    
+>>>>>>> c137182f8c57bd52b5aa68a969d4fc399bbed349
 - [Conclusão](#Conclusão)
     - [Como melhorar a Metodologia?](#Conclusão)
     - [Reavaliando a Implementação do Algoritmo em Matrizes bidimensionais](#Conclusão)
