@@ -33,13 +33,16 @@
 
  - [Metodologia](#Metodologia)
     - [Solução](#Solução)
-    - [Desenvolvimento](#Desenvolvimento)
+        - [Arquivos](#Arquivos)
+        - [Funcionamento](#Funcionamento)
+    - [Implementação](#Implementação)
     - [Compilação e Execução](#Compilação-e-Execução)
     - [Ambiente de Desenvolvimento](#Ambiente-de-Desenvolvimento)
+
 - [Conclusão](#Conclusão)
     - [Como melhorar a Metodologia?](#Conclusão)
     - [Reavaliando a Implementação do Algoritmo em Matrizes bidimensionais](#Conclusão)
-    - [Referências](#Referências)
+- [Referências](#Referências)
 <br><br>
 
 ## Introdução
@@ -89,9 +92,9 @@ Este repositório apresenta  a solução para um problema proposto na disciplina
     -   Rosa: Posição futura escolhida.
 
 ## Fundamentação Teórica
-- Para contextualizar o funcionamento do algoritmo, considere que um personagem caminha por um labirinto até encontrar uma saída definida por um ponto de interrogação:
-    - O personagem representa uma abstração para uma busca realizada em uma matriz, essa busca se encerra quando o elemento $!$ é encontrado.
-    -   O caracter $*$ representa uma casa que reiniciar a pesquisa. Isso significa que, se o personagem passa pelo elemento $a_{ij} = *$, este haverá de reiniciar sua busca da posição $a_{00}$. Além disso o caminho entre $a_{ij}$ e $a_{00}$ será considerado como não percorrido.
+- Para contextualizar o funcionamento do algoritmo, considere que um personagem caminha por um labirinto até encontrar uma saída definida por um ponto de interrogação($?$):
+    - O personagem representa uma abstração para uma busca realizada em uma matriz, essa busca se encerra quando o elemento $?$ é encontrado.
+    -   O caracter $*$ representa uma casa que reiniciar a pesquisa. Isso significa que, se o personagem passa pelo elemento $a_{ij} = *$, este haverá de reiniciar sua busca da posição $a_{00}$. Além disso o caminho entre $a_{ij}$ e $a_{00}$ será considerado como não percorrido e $a_{ij} = *$ será transformado em $a_{ij} = 1$. 
     -   A parede representa uma casa por onde o ambicioso não consegue passar.
     
 ### Estruturas de Dados
@@ -208,9 +211,78 @@ ____________________________________________
 - Observe como a BFS percorre casas adjascentes rapidamente em apenas 3 iterações. Enquanto isso a DFS foca ir em somente uma "direção" da matriz, ou seja, matemáticamente este percorreria vários vértices rapidamente, onde a distância entre eles depende de $n_{v}$ vértices vizinhos, portanto de $n_{e}-1$ arestas, afinal o percurso realizado gera um subgrafo onde todos os vértices tem grau $1$. Portanto BFS verifica vértices próximos(com arestas em comum) muito rapidamente, já o DFS pesquisa entre vértices distantes rapidamente. Com isso cada um destes é melhor para uma situação específica.
 
 <br>
+
+## Objetivos:
+A problemática proposta pelo trabalho incita os alunos da disciplina a efetuar o caminhamento por BFS, DFS ou Caminhamento Aleatório de uma matriz de entrada com $N>=50$. Isso deve ser realizado seguindo algumas diretrizes de desenvolvimento:
+
+- A matriz estará préviamente organizada para processamento em um arquivo `input.data`.
+- O ponto inicial das três formas de caminhamento é o ponto onde se localiza o elemento $a_{00}$, ou seja, onde $i = 0, j=0$.
+- A busca se limita ao escopo de matriz alocado na memória, portanto o programa caminha somente em $a_{ij}$ para $N-1>=i>=0$ e $N-1>=j>=0$.
+- O programa deve ser escrito de modo à considerar comparações entre a execução dos 3 métodos de busca com diferentes tipos de entrada. Uma forma de facilitar essas comparações é realizando mensurações de tempo diante da execução destas funções.
+
+
+<br>
+
+## Metodologia:
+### Arquivos:
+Para resolução do desafio alguns arquivos foram cridos, dentre eles: 
+ - `input.data`: Um arquivo que armazena o valor de $N$, ou seja, o tamanho da matriz e os elementos que serão armazenados ali.
+
+
+ <div align="center">
+<strong>Figura 5</strong> - input.data    
+<br>
+
+<img src = "./DFS/img/inputData.jpeg">
+
+<br>
+Fonte: Captura de tela feita pelo autor⁷.
+<br>
+____________________________________________
+<br>⁷Captura de tela do computador do autor. Disponível em: <a href="https://github.com/jAzz-hub/BFS_and_DFS/blob/main/DFS/img/inputData.jpeg">Imagem 3</a>.
+</div>
+<br>
+
+
+- `Makefile` : Controla a geração dos executáveis e compilação dos mesmos(FREE SOFTWARE FOUNDATION, GNU make, 2023).
+
+- `bfs.c` : Contém as funções criadas para implementação do algoritmo BFS.
+
+- `bfs.h` : Contém a assinatura da função de `bfs.c`.
+
+- `dfs.c` : Contém as funções criada para implementação do algoritmo DFS.
+
+- `dfs.h` : Contém a assinatura da função de `dfs.c`.
+
+- `random_walk.c` : Contém as funções criadas para implementação do de uma estrutura de fila.
+
+- `random_walk.h` : Contém a assinatura das funções de `random_walk.c` e a implementação da estrutura de uma fila.
+
+- `Maze.c` : Contém as funções criadas para leitura e processamento do labirinto.
+
+- `Maze.h` : Contém a assinatura das funções criadas em `Maze.c`.
+
+- `Queue.c` : Contém as funções criadas para implementação do de uma estrutura de fila.
+
+- `Queue.h` : Contém a assinatura das funções de `Queue.c` e a implementação da estrutura de uma fila.
+
+- `Stack.c` : Contém as funções criadas para implementação do de uma estrutura de pilha.
+
+- `Stack.h` : Contém a assinatura das funções de `Stack.c` e a implementação da estrutura de uma pilha.
+
+
+
+
+
+- `structures.h` : Contém as estruturas e chamadas de bibliotecas utilizadas e assinaturas das funções do programa.
+
+- `main.c` : Contém uma série de funções e declaração de variáveis que façam com que a busca pela matriz seja realizada devidamente.
+
+
+
+
 <br>
 referências:
-<br>
 <br>
 
 <br><br>
