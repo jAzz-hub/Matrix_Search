@@ -34,11 +34,15 @@
  - [Metodologia](#Metodologia)
     - [Solução](#Solução)
         - [Arquivos](#Arquivos)
-        - [Funcionamento](#Funcionamento)
-    - [Implementação](#Implementação)
+            -[Primeira Leitura do Arquivo)](#1-Primeira-Leitura-do-Arquivo)
+            -[Percorrendo a Matriz](#1-Percorrendo-a-Matriz)
+                -[Casos especiais](#2.1-Casos-especiais)
+                -[Implementação](#2.2-Percorrendo-a-Matriz)
+    
     
 - [Conclusão](#Conclusão)
-    - [Como melhorar a Metodologia?](#Conclusão)
+    - [Por Qual Motivo Utilizar Matrizes Bidimensionais?
+](#Conclusão)
     - [Reavaliando a Implementação do Algoritmo em Matrizes bidimensionais](#Conclusão)
 - [Referências](#Referências)
 
