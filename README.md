@@ -93,15 +93,6 @@ Este repositório apresenta  a solução para um problema proposto na disciplina
 
 - Nomes de comandos digitados no terminal,funções ou variáveis serão referênciados da seguinte forma: _**touch main.cpp**_, _**make run**_.
 
-- Para as **Figuras** de **1** à **x**, considere a legenda de cores:
-
-
-
-    -   Azul:Uma posição futura possível.</kbd>
-    -   Cinza: Uma posição futura impossível.
-    -   Laranja: Posição atual ou inicial.
-    -   Rosa: Posição futura escolhida.
-
 ## Fundamentação Teórica
 - Para contextualizar o funcionamento do algoritmo, considere que um personagem caminha por um labirinto até encontrar uma saída definida por um ponto de interrogação($?$):
     - O personagem representa uma abstração para uma busca realizada em uma matriz, essa busca se encerra quando o elemento $?$ é encontrado.
@@ -146,7 +137,7 @@ Observa-se que os vértices circulados de vermelho na imagem são vértices com 
 Fonte: Construção pelo autor².
 <br>
 ____________________________________________
-<br>Criada usando o graphonline após assistir ao vídeo¹, Disponível no <a href="https://www.canva.com/design/DAFd8EjV-8w/M4fX0cOTTduzNNPJxuF73Q/edit?utm_content=DAFd8EjV-8w&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton">link</a>.
+<br>Criada usando o graphonline após assistir ao vídeo¹.
 </div>
 
 
@@ -198,7 +189,7 @@ ____________________________________________
 Fonte: Construção pelo autor⁵.
 <br>
 ____________________________________________
-<br>Criada usando o graphonline após assistir ao vídeo², Disponível no <a href="https://www.canva.com/design/DAFd8EjV-8w/M4fX0cOTTduzNNPJxuF73Q/edit?utm_content=DAFd8EjV-8w&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton">link</a>.
+<br>Criada usando o graphonline após assistir ao vídeo².
 </div>
 
 <br>
@@ -250,7 +241,7 @@ Para resolução do desafio alguns arquivos foram cridos, dentre eles:
 Fonte: Captura de tela feita pelo autor⁷.
 <br>
 ____________________________________________
-<br>⁷Captura de tela do computador do autor. Disponível em: <a href="https://github.com/jAzz-hub/BFS_and_DFS/blob/main/DFS/img/inputData.jpeg">Imagem 3</a>.
+<br>⁷Captura de tela do computador do autor.
 </div>
 <br>
 
@@ -346,7 +337,7 @@ O programa armazena o tempo de execução das funções de pesquisa em variávei
 Fonte: Captura de tela feita pelo autor⁸.
 <br>
 ____________________________________________
-<br>Captura de tela do computador do autor. Disponível em⁸, Disponível no <a href="">link</a>.
+<br>Captura de tela do computador do autor.
 </div>
 <br>
 
@@ -360,7 +351,7 @@ ____________________________________________
 Fonte: Captura de tela feita pelo autor⁹.
 <br>
 ____________________________________________
-<br>Captura de tela do computador do autor. Disponível em⁹, Disponível no <a href="">link</a>.
+<br>Captura de tela do computador do autor.
 </div>
 <br>
 
@@ -374,7 +365,7 @@ ____________________________________________
 Fonte: Captura de tela feita pelo autor¹⁰.
 <br>
 ____________________________________________
-<br>Captura de tela do computador do autor. Disponível em¹⁰, Disponível no <a href="">link</a>.
+<br>Captura de tela do computador do autor.
 </div>
 <br>
 
@@ -451,7 +442,7 @@ O código foi desenvolvido e testado no seguinte ambiente de desenvolvimento:
 
 [4] Introdução à Teoria dos Grafos – Aula 5 – Grau de um vértice e o problema das Pontes de Königsberg. Disponível em: <https://www.youtube.com/watch?v=125pPCIRjZ8>. Acesso em: 24 maio. 2023.
 
-[5] PIRES, MICHEL - Repositório GitHub, @mpiress: GenerateDataToMatrix - Disponível em: https://github.com/mpiress/GenerateDataToMatrix/blob/main/src/mat.h. Acessado em 15 de Março de 2023.
+[5] PIRES, MICHEL - Repositório GitHub, @mpiress: GenerateDataToMatrix - Disponível em: https://github.com/mpiress/GenerateDataToMatrix/blob/main/src/mat.h. Acessado em 15 de Maio de 2023.
 
 [6] GNU make. Disponível em: <https://www.gnu.org/software/make/manual/make.html>. Acessado em XX de Maio de 2023.
 
