@@ -1,5 +1,5 @@
 <div align = "center" >
-<img src="./DFS/img/GraphIMG.png" height="35%" width="35%">
+<img src="./img/GraphIMG.png" height="35%" width="35%">
 </div>
 
 <div align="justify">
@@ -116,7 +116,7 @@ Este repositório apresenta  a solução para um problema proposto na disciplina
 <br>
 <strong>Figura 1 -</strong> DFS no Grafo
 <br>
-<img src="./DFS/img/DFS_Walk.png" height="78%" width="78%">
+<img src="./img/DFS_Walk.png" height="78%" width="78%">
 <br>
 Fonte: Construção pelo autor¹.
 <br>
@@ -132,7 +132,7 @@ Observa-se que os vértices circulados de vermelho na imagem são vértices com 
 <br>
 <strong>Vídeo 1 -</strong> DFS no Grafo
 <br>
-<img src="./DFS/img/DFS.gif" height="78%" width="78%">
+<img src="./img/DFS.gif" height="78%" width="78%">
 <br>
 Fonte: Construção pelo autor².
 <br>
@@ -151,7 +151,7 @@ ____________________________________________
 <br>
 <strong>Figura 2 -</strong> DFS em Matriz
 <br>
-<img src = "./DFS/img/DFS_MATRIX.png">
+<img src = "./img/DFS_MATRIX.png">
 <br>
 Fonte: Construção pelo autor³.
 <br>
@@ -167,7 +167,7 @@ ____________________________________________
 <br>
 <strong>Figura 3 -</strong> BFS no Grafo
 <br>
-<img src = "./DFS/img/BFS_walk.png" height = "78%" width = "78%">
+<img src = "./img/BFS_walk.png" height = "78%" width = "78%">
 
 <br>
 Fonte: Construção pelo autor⁴.
@@ -184,7 +184,7 @@ ____________________________________________
 <br>
 <strong>Vídeo 2 -</strong> BFS no Grafo
 <br>
-<img src="./DFS/img/BFS.gif" height="78%" width="78%">
+<img src="./img/BFS.gif" height="78%" width="78%">
 <br>
 Fonte: Construção pelo autor⁵.
 <br>
@@ -202,7 +202,7 @@ ____________________________________________
 <br>
 <strong>Figura 4 -</strong> DFS em Matriz
 <br>
-<img src = "./DFS/img/BFS_MATRIZ.png" height = "78%" width = "78%">
+<img src = "./img/BFS_MATRIZ.png" height = "78%" width = "78%">
 <br>
 Fonte: Construção pelo autor⁶.
 <br>
@@ -235,7 +235,7 @@ Para resolução do desafio alguns arquivos foram cridos, dentre eles:
 <strong>Figura 5</strong> - input.data    
 <br>
 
-<img src = "./DFS/img/inputData.jpeg">
+<img src = "./img/inputData.jpeg">
 
 <br>
 Fonte: Captura de tela feita pelo autor⁷.
@@ -311,7 +311,7 @@ O programa não trata casos especiais onde a posição inicial se encontre cerca
 <strong>Figura 6</strong> - input.data    
 <br>
 
-<img src = "./DFS/img/workingBadWith.png" height = "78%" width = "78%">
+<img src = "./img/workingBadWith.png" height = "78%" width = "78%">
 
 <br>
 Fonte: Construção pelo autor⁸.
@@ -331,7 +331,7 @@ O programa armazena o tempo de execução das funções de pesquisa em variávei
 <strong>Figura 7</strong> - Saída da busca aletória, tempo de execução: 17.686000 ms    
 <br>
 
-<img src = "./DFS/img/outputAleatorio.jpeg" height = "78%" width = "78%">
+<img src = "./img/outputAleatorio.jpeg" height = "78%" width = "78%">
 
 <br>
 Fonte: Captura de tela feita pelo autor⁸.
@@ -345,7 +345,7 @@ ____________________________________________
 <strong>Figura 8</strong> - Saída da busca DFS, tempo de execução: 0.534000 ms    
 <br>
 
-<img src = "./DFS/img/outputDFS.jpeg" height = "78%" width = "78%">
+<img src = "./img/outputDFS.jpeg" height = "78%" width = "78%">
 
 <br>
 Fonte: Captura de tela feita pelo autor⁹.
@@ -359,7 +359,7 @@ ____________________________________________
 <strong>Figura 9</strong> - Saída da busca BFS, tempo de execução: 9.183000 ms    
 <br>
 
-<img src = "./DFS/img/outputBFS.jpeg" height = "78%" width = "78%">
+<img src = "./img/outputBFS.jpeg" height = "78%" width = "78%">
 
 <br>
 Fonte: Captura de tela feita pelo autor¹⁰.
