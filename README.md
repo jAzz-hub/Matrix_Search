@@ -19,7 +19,6 @@
 
 ## Índice
  - [Introdução](#Introdução)
-    - [Contextualizando os Algoritmos](#contextualizando-os-algoritmos)
 
  - [Fundamentação Teórica](#Fundamentação-Teórica)
     - [Estruturas de Dados](#Estruturas-de-Dados)
@@ -32,23 +31,29 @@
  - [Objetivos](#Objetivos)
 
  - [Metodologia](#Metodologia)
-    - [Solução](#Solução)
-        - [Arquivos](#Arquivos)
-            -[Primeira Leitura do Arquivo)](#1-Primeira-Leitura-do-Arquivo)
-            -[Percorrendo a Matriz](#1-Percorrendo-a-Matriz)
-                -[Casos especiais](#2.1-Casos-especiais)
-                -[Implementação](#2.2-Percorrendo-a-Matriz)
+    
+    - [Arquivos](#Arquivos)
+
+        - [Funcionamento](#Funcionamento)
+            - [1. Primeira Leitura do Arquivo](#1-Primeira-Leitura-do-Arquivo)
+
+            - [2.Percorrendo a Matriz](#2.-Percorrendo-a-Matriz)
+
+                - [2.1. Casos Especiais](#2.1.-Casos-Especiais)
+                
+                - [2.2. Implementação](#22-implementação)
+
     
     
-- [Conclusão](#Conclusão)
-    - [Por Qual Motivo Utilizar Matrizes Bidimensionais?
-](#Conclusão)
-    - [Reavaliando a Implementação do Algoritmo em Matrizes bidimensionais](#Conclusão)
-- [Referências](#Referências)
+- [Conclusão](#conclusão)
+    - [Grafos ou Matrizes?](#Grafos-ou-Matrizes?)
+    - [Comparações Entre as Formas de Caminhamento](#Comparações-Entre-as-Formas-de-Caminhamento)
 
 
 - [Compilação e Execução](#Compilação-e-Execução)
 - [Ambiente de Desenvolvimento](#Ambiente-de-Desenvolvimento)
+
+- [Referências](#Referências)
 <br><br>
 
 ## Introdução
@@ -280,12 +285,12 @@ ____________________________________________
 
 ### Funcionamento
 
- #### 1. Primeira Leitura do arquivo
+ #### 1. Primeira Leitura do Arquivo
   A leitura das entradas do arquivo `input.data` é realizada apenas 1 vez, em primeiro lugar o código reconhece qual a ordem da matriz presente no arquivo, isso será realizado respectivamente pelas funções _**read_size**_ e _**read_matrix**_.
 
   A função _**read_size**_ é responsável por ler a primeira linha do arquivo de entrada e retornar $N$, já _**read_matrix**_ é responsável por ler os valores do arquivo e salvar em uma matriz. 
 
- #### 2 Percorrendo a Matriz
+ #### 2. Percorrendo a Matriz
   Há três formas de percorrer a matriz, são elas as funções _**RAND**_, _**DFS**_ e _**BFS**_. Todas estas funções param suas iterações quando o caracter $?$ está em um elemento contido na posição presente. Além disso quando o caracter na posição atual for igual a $*$ todas as funções apagam o caminho realizado entre $a_{00}$ e $a_{ij}$ tendo $i$ e $j$ atuais como referência e reiniciam as iterações partindo de novo do elemento ou posição $a_{00}$.
 
 - Iterações na função _**DFS**_
@@ -308,7 +313,7 @@ ____________________________________________
     
     - Dito isto o procedimento será realizado até que o caracter $?$ seja encontrado.
  
- #### 2.3 Casos especiais
+ #### 2.1. Casos Especiais
 O programa não trata casos especiais onde a posição inicial se encontre cercada por paredes inicialmente. Portanto o caso da imagem abaixo pode trazer problemas de execução:
 
 <div align="center">
@@ -326,7 +331,7 @@ ____________________________________________
 <br>
 
  
-#### Implementação 2.4
+#### 2.2. Implementação
 O programa armazena o tempo de execução das funções de pesquisa em variáveis do `main.c` chamando a função _**clock()**_ antes e depois de da chamada de cada uma das funções. Isso permite que haja uma mensuração de complexidade considerando o ambiente de execução no momento em que o comando _**make run**_ é executado por um sistema operacional contido em uma máquina específica. Diante disso dada a entrada contida na **Figura 6** temos a saída demonstrada em **Figura 7**, **Figura 8** e **Figura 9**.
 
 
@@ -375,7 +380,7 @@ ____________________________________________
 
 
 ## Conclusão
-### Por Qual Motivo Utilizar Matrizes Bidimensionais?
+### Grafos-ou-Matrizes?
 Como foi dito anteriormente o problema pode ser resolvido de diversas formas, uma delas é usufruindo de grafos. As relações entre vértices permitem inferências matemáticas mais plurais e complexas que as propostas aqui. Considerando que implementações realizadas aqui se restringem ao percorrimento de um espaço muito grande, a implementação de uma estrutura de dados tão complexa quanto o grafo poderia ser um custo desnecessário. Portanto os grafos não foram uma indicação nem uma escolha para solucionar o problema proposto.
 
 ### Comparações Entre as Formas de Caminhamento
@@ -408,7 +413,7 @@ Para compilação e execução do código é necessário que seja criado um arqu
 </tr>
 </table>
 
-## Ambiente de desenvolvimento:
+## Ambiente de Desenvolvimento:
 O código foi desenvolvido e testado no seguinte ambiente de desenvolvimento:
 
 <table>
