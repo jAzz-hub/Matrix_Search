@@ -1,8 +1,6 @@
 <div align = "center" >
-<img src="./img/GraphIMG.png" height="35%" width="35%">
+  <img src="./img/GraphIMG.png" height="35%" width="35%">
 </div>
-
-<div align="justify">
 
 <div align="center">
 
@@ -11,13 +9,17 @@
 #### Algoritmos e Estrutura de Dados
 
 #### Compatibilidade e Desenvolvimento
+
 ![C](https://img.shields.io/badge/-00599C?style=for-the-badge&logo=c&logoColor=white)
 ![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)  
 
 </div>
 
 ## Índice
+
  - [Introdução](#Introdução)
+
+ - [Objetivos](#Objetivos)
 
  - [Fundamentação Teórica](#Fundamentação-Teórica)
     - [Estruturas de Dados](#Estruturas-de-Dados)
@@ -27,22 +29,24 @@
         - [BFS em Grafos](#BFS-em-Grafos)
         - [BFS em Matrizes Bidimensionais](#BFS-em-Matrizes-Bidimensionais)
 
- - [Objetivos](#Objetivos)
-
  - [Metodologia](#Metodologia)
     
     - [Arquivos](#Arquivos)
 
         - [Funcionamento](#Funcionamento)
-            - [1. Primeira Leitura do Arquivo](#1-Primeira-Leitura-do-Arquivo)
+            - [Primeira Leitura do Arquivo](#Primeira-Leitura-do-Arquivo)
 
-            - [2.Percorrendo a Matriz](#2.-Percorrendo-a-Matriz)
+            - [Percorrendo a Matriz](#Percorrendo-a-Matriz)
 
-                - [2.1. Casos Especiais](#2.1.-Casos-Especiais)
+                - [Casos Especiais](#Casos-Especiais)
                 
-                - [2.2. Implementação](#22-implementação)
-
-    
+                - [Exemplo](#Exemplo)
+                
+                    - [Caminhamento aleatório](#Caminhamento-aleatório)
+                
+                    - [Caminhamento DFS](#Caminhamento-DFS)
+                
+                    - [Caminhamento BFS](#Caminhamento-BFS)
     
 - [Conclusão](#conclusão)
     - [Grafos ou Matrizes?](#Grafos-ou-Matrizes?)
@@ -56,9 +60,8 @@
 <br><br>
 
 ## Introdução
-Este repositório apresenta  a solução para um problema proposto na disciplina de Algoritmos e Estruturas de Dados. Para isso foi requisitado que a solução fosse desenvolvida em forma de 3 algoritmos, são eles o DFS(Deep First Search, ou Busca em Profundidade), o BFS(Brandth First Search ou Busca em Largura) e uma forma de realizar buscas escolhendo entre casas adjascentes aleatoriamente. Para isso considere as seguintes colocações:
 
-- Nomes de diretórios, ou arquivos serão referênciados da seguinte forma: `Nome.txt` ou `Diretório_2`.
+Este repositório apresenta a solução de um problema, a partir de diferentes métodos, proposto na disciplina de Algoritmos e Estruturas de Dados. Para tanto, a solução foi desenvolvida por 3 algoritmos distintos, sendo eles o DFS (Deep First Search, ou Busca em Profundidade), o BFS (Brandth First Search ou Busca em Largura) e uma forma de realizar buscas escolhendo entre casas adjascentes aleatoriamente. Com isso, considerou as seguintes colocações:
 
 - $G$ - Um grafo qualquer.
 
@@ -70,9 +73,7 @@ Este repositório apresenta  a solução para um problema proposto na disciplina
 
 - $n_{e}$ - Número de arestas em um percurso.
 
-- $K$ - Número de matrizes de entrada presentes no arquivo `input.data`.
-
-- $N$ - Ordem das matrizes sendo representada pelos 2 primeiros números da primeira linha do arquivo `input.data`, portanto o código já espera que $N \in \mathbb{Z}$ e $N\geq 0$ e não trata essa variável.
+- $N$ - Ordem das matrizes sendo representada pelos 2 primeiros números da primeira linha do arquivo `input.data`, portanto o código já espera que $N \in \mathbb{Z}$ e $N > 0$ e não trata essa variável.
 
 - $i$ - Índice da linha de uma matriz, também pode ser abstraído como deslocamento na vertical, tal que $i \geq 0$ e $i \in \mathbb{Z}$.
 
@@ -80,36 +81,92 @@ Este repositório apresenta  a solução para um problema proposto na disciplina
 
 - $a_{ij}$ - Elemento encontrado quando há deslocamento até a linha de índice $i$ e coluna de índice $j$.
 
-- _Tralha ou jogo da velha_ - **Parede**: Local onde não se pode passar dentro de uma matriz.
+- Caminho possível (**1**): Local em uma matriz onde se pode caminhar.
 
-- $*$ - **Perigo**: Local onde ao se passar haverá descrescimento em 1 da variável vida.
+- Parede (**#**): Local onde não se pode passar dentro de uma matriz.
 
-- $a_{ij}$ - Elemento encontrado quando há deslocamento até a linha de índice $i$ e coluna de índice $j$.
+- Perigo (**\***): Local onde ao se passar haverá descrescimento em 1 da variável vida.
 
-- $?$ - Elemento encontrado durante o percorrimento da matriz que representa o encerramento de uma pesquisa ou a saída do labirinto.
+- Saída da matriz (**?**): Elemento encontrado durante o percorrimento da matriz que representa o encerramento de uma pesquisa ou a saída do labirinto.
 
+## Objetivos:
 
+A problemática proposta pelo trabalho incita os alunos da disciplina a efetuar o caminhamento por largura (BFS), profundidade (DFS) e aleatório de uma matriz de entrada com $N \ge 50$. Isso deve ser realizado seguindo as seguintes diretrizes de desenvolvimento:
 
-- Nomes de comandos digitados no terminal,funções ou variáveis serão referênciados da seguinte forma: _**touch main.cpp**_, _**make run**_.
+- A matriz estará préviamente organizada para processamento em um arquivo `input.data`.
+
+- O ponto inicial das três formas de caminhamento é o ponto onde se localiza o elemento $a_{00}$, ou seja, onde $i = 0$, $j=0$.
+
+- A busca se limita ao escopo de matriz alocado na memória, portanto o programa caminha somente em $a_{ij}$ para $0 \le i \le N-1$ e $0 \le j \le N-1$.
+
+- O programa foi escrito de modo à considerar comparações entre a execução dos 3 métodos de busca com diferentes tipos de entrada. Uma forma de facilitar essas comparações é realizando mensurações de tempo de execução destes métodos.
+
+<br>
 
 ## Fundamentação Teórica
-- Para contextualizar o funcionamento do algoritmo, considere que um personagem caminha por um labirinto até encontrar uma saída definida por um ponto de interrogação($?$):
-    - O personagem representa uma abstração para uma busca realizada em uma matriz, essa busca se encerra quando o elemento $?$ é encontrado.
-    -   O caracter $*$ representa uma casa que reiniciar a pesquisa. Isso significa que, se o personagem passa pelo elemento $a_{ij} = *$, este haverá de reiniciar sua busca da posição $a_{00}$. Além disso o caminho entre $a_{ij}$ e $a_{00}$ será considerado como não percorrido e $a_{ij} = *$ será transformado em $a_{ij} = 1$. 
-    -   A parede representa uma casa por onde o ambicioso não consegue passar.
-    
+
+Para contextualizar o funcionamento do algoritmo, considere que um personagem caminha por um labirinto até encontrar uma saída definida por um ponto de interrogação($?$):
+
+
+- Para solucionar o problema, a equipe utilizou a alocação dos valores de entradas em elementos $a_{ij}$ de uma matriz $M$ de ordem $N$. Portanto a estrutura de dados utilizada foi uma matriz $N$ x $N$.
+
+- O personagem representa uma abstração para uma busca realizada em uma matriz, sendo que esta busca se encerra quando o elemento $?$ é encontrado;
+
+- A parede representa uma casa por onde o personagem não consegue caminhar;
+
+- O caracter $*$ representa uma casa que faz com que a pesquisa seja reiniciada.
+
+É importante destacar que, quando o personagem passa pelo elemento $a_{ij} = *$, ele deverá de reiniciar sua busca, voltando à posição $a_{00}$. Além disso, todo o caminhamento realizado será considerado como não percorrido, e $a_{ij} = *$ será transformado em $a_{ij} = 1$.
+
 ### Estruturas de Dados
-- Para solucionar o problema a equipe usufruiu da alocação dos valores de entradas em elementos $a_{ij}$ de uma matriz $M$ de ordem $N$. Portanto a estrutura de dados utilizada foi uma matriz $N$ x $N$.
+
+Estruturas de dados são formas de organizar e armazenar dados em computação, permitindo a eficiente manipulação e acesso aos mesmos. Elas são essenciais para o desenvolvimento de algoritmos e soluções eficientes para problemas complexos. Existem várias estruturas de dados disponíveis, cada uma com suas próprias características, uso e eficiência para diferentes cenários.
+
+Pilha e Fila são estruturas de dados amplamente utilizadas na programação para armazenar e organizar elementos. A pilha é uma estrutura de dados LIFO (Last-In, First-Out), o que significa que o último elemento inserido é o primeiro a ser removido. já a fila é uma estrutura de dados FIFO (First-In, First-Out), o que significa que o primeiro elemento inserido é o primeiro a ser removido.
+
+Em um caminhamento em matriz, a pilha é útil para percorrer em profundidade (depth-first) a partir de um ponto inicial. A pilha é usada para armazenar os elementos visitados e suas posições enquanto se avança pelo caminho. Ao atingir um ponto sem saída, é possível retroceder removendo o último elemento inserido na pilha, dizer ao programa para não visitar mais este elemento e continuar explorando outras possibilidades.
 
 ### Algoritmos
--  Os algoritmos para guiar o personagem idealizado, são buscas em largura e em profundidade. Estes algoritmos serão executados nas matrizes bidimensionais utilizadas como entradas no arquivo _`input.data`_.
+
+Os algoritmos para guiar o personagem idealizado, são buscas em largura e em profundidade. Estes algoritmos serão executados nas matrizes bidimensionais utilizadas como entradas no arquivo _`input.data`_. A partir desta entrada, os três algoritmos movem a partir de quatro direções:
+
+<table align="center">
+    <tr>
+        <td align="center"></td>
+        <td align="center">&#x21D1;</td>
+        <td align="center"></td>
+    </tr>
+    <tr>
+        <td align="center">&#x21D0;</td>
+        <td align="center"></td>
+        <td align="center">&#x21D2;</td>
+    </tr>
+    <tr>
+        <td align="center"></td>
+        <td align="center">&#x21D3;</td>
+        <td align="center"></td>
+    </tr>
+</table>
 
 #### Travessia ou Busca em Grafos
-- O entendimento dos algoritmos DFS e BFS tem grande importância no estudo de algoritmos e estruturas de dados. No estudo de grafos por exemplo, consideramos DFS e BFS formas de percorrer grafos em busca da validação de um percurso entre dois vértices, contagem de trilhas, circuitos e outras inferências sobre estes objetos computacionais.
+
+O entendimento dos algoritmos DFS e BFS tem grande importância no estudo de algoritmos e estruturas de dados. No estudo de grafos por exemplo, considera-se DFS e BFS formas de percorrer grafos em busca da validação de um percurso entre dois vértices, contagem de trilhas, circuitos e outras inferências sobre estes objetos computacionais.
+
+Grafos são estruturas de dados que consistem em um conjunto de vértices conectados por arestas. Eles são usados para representar relações entre objetos ou entidades. Alguns algoritmos e problemas comuns em grafos são:
+
+- Busca em Profundidade (DFS - Depth-First Search): Explora os vértices do grafo em profundidade antes de retroceder;
+
+- Busca em Largura (BFS - Breadth-First Search): Explora os vértices do grafo em largura, nível por nível;
+
+- Árvore de Busca: É um subgrafo do grafo original que conecta todos os vértices sem formar ciclos;
+
+- Algoritmo de Dijkstra: Encontra o caminho mais curto entre dois vértices em um grafo ponderado;
+
+- Algoritmo de Kruskal: Encontra a árvore geradora mínima de um grafo ponderado.
 
 #### DFS em Grafos
-- Considerando um passeio realizado em um grafo finito, DFS funciona da seguinte forma. Dado um vértice raiz, ou vértice de início, 1 vértice filho se torna o próximo vértice atual até que não hajam mais vértices filhos vizinhos inexplorados. Após isso o vértice raiz se torna o atual novamente e um novo percurso se inicia. Como pode ser visto um passeio com DFS no grafo abaixo segue a ordem formalmente representada como ${Passeio}: (0, 1, 2, 3, 5, 6)$.
 
+Considerando um passeio realizado em um grafo finito, DFS funciona da seguinte forma: dado um vértice raiz, ou vértice de início, 1 vértice filho se torna o próximo vértice atual até que não hajam mais vértices filhos vizinhos inexplorados. Após isso o vértice raiz se torna o atual novamente e um novo percurso se inicia. Como pode ser visto um passeio com DFS no grafo abaixo segue a ordem formalmente representada como ${Passeio}: (0, 1, 2, 3, 5, 6)$.
 
 <div align = "center" >
 <br>
@@ -144,7 +201,10 @@ ____________________________________________
 
 
 #### DFS em Matrizes Bidimensionais
-- Já em matrizes bidimensionais a DFS percorre uma linha ou coluna até que encontre um caracter que a faça reorientar a busca em outra direção(A reorientação acontece quando a busca identifica uma parede ou posição já percorrida anteriormente, portanto não se moverá para lá). As direções escolhidas não podem fazer com que a busca passe em um elemento da matriz que já foi visitado previamente. Observe como a DFS percorre um coluna por completo e tem uma seta vermelha representando que não pode se mover para $a_{10}$ pois essa posição já foi percorrida previamente.
+
+Já em matrizes bidimensionais a DFS percorre uma linha ou coluna até que encontre um caracter que a faça reorientar a busca em outra direção(A reorientação acontece quando a busca identifica uma parede ou posição já percorrida anteriormente, portanto não se moverá para lá).
+
+As direções escolhidas não podem fazer com que a busca passe em um elemento da matriz que já foi visitado previamente. Observe como a DFS percorre um coluna por completo e tem uma seta vermelha representando que não pode se mover para $a_{10}$ pois essa posição já foi percorrida previamente.
 
 <div align = "center" >
 <br>
@@ -160,7 +220,9 @@ ____________________________________________
 
 #### BFS em Grafos
 
-- Considerando um passeio realizado em um grafo finito, BFS funciona da seguinte forma. Dado um vértice raiz, ou vértice de início, cada um de seus vértices adjascentes serão explorados e usados como próximos vértices atuais.Tendo estes como vértices vizinhos, na nova iteração estes terão seus adjascentes como percorridos e assim sucessivamente. A busca em largura encerra quando todos os vértices de um grafo tiverem sido percorridos.Um fato interessante do BFS é que a pesquisa em largura permite inferir qual o menor caminho entre dois vértices no momento em que ambos estiverem sido percorridos na busca.Observe como isso acontece no vídeo e na imagem abaixo ${Passeio}: (1, 2, 3, 4, 5, 6, 7, 8, 9, 10)$. Considere que na imagem houveram apenas 3 iterações de busca em largura.
+Considerando um passeio realizado em um grafo finito, BFS funciona da seguinte forma. Dado um vértice raiz, ou vértice de início, cada um de seus vértices adjascentes serão explorados e usados como próximos vértices atuais.Tendo estes como vértices vizinhos, na nova iteração estes terão seus adjascentes como percorridos e assim sucessivamente. A busca em largura encerra quando todos os vértices de um grafo tiverem sido percorridos.
+
+Um fato interessante do BFS é que a pesquisa em largura permite inferir qual o menor caminho entre dois vértices no momento em que ambos estiverem sido percorridos na busca.Observe como isso acontece no vídeo e na imagem abaixo ${Passeio}: (1, 2, 3, 4, 5, 6, 7, 8, 9, 10)$. Considere que na imagem houveram apenas 3 iterações de busca em largura.
 
 <div align = "center" >
 <br>
@@ -195,7 +257,7 @@ ____________________________________________
 
 #### BFS em Matrizes Bidimensionais
 
-- Já em matrizes bidimensionais a BFS percorre todas as casas adjascentes à(s) casa(s) presente(s) por iteração de pesquisa. As direções escolhidas não podem fazer com que a busca passe em um elemento pesquisado. Perceba que a seta vermelha representa que não pode se mover para $a_{02}$ pois essa posição possui uma parede.
+- Já em matrizes bidimensionais, a BFS percorre todas as casas adjascentes à(s) casa(s) presente(s) por iteração de pesquisa. As direções escolhidas não podem fazer com que a busca passe em um elemento pesquisado. Perceba que a seta vermelha representa que não pode se mover para $a_{02}$ pois essa posição possui uma parede.
 
 <div align = "center" >
 <br>
@@ -209,41 +271,16 @@ ____________________________________________
 <br>Criada usando o Canva⁶, Disponível no <a href="https://www.canva.com/design/DAFd8EjV-8w/M4fX0cOTTduzNNPJxuF73Q/edit?utm_content=DAFd8EjV-8w&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton">link</a>.
 </div>
 
-- Observe como a BFS percorre casas adjascentes rapidamente em apenas 3 iterações. Enquanto isso a DFS foca ir em somente uma "direção" da matriz, ou seja, matemáticamente este percorreria vários vértices rapidamente, onde a distância entre eles depende de $n_{v}$ vértices vizinhos, portanto de $n_{e}-1$ arestas, afinal o percurso realizado gera um subgrafo onde todos os vértices tem grau $1$. Portanto BFS verifica vértices próximos(com arestas em comum) muito rapidamente, já o DFS pesquisa entre vértices distantes rapidamente. Com isso cada um destes é melhor para uma situação específica.
-
-<br>
-
-## Objetivos:
-A problemática proposta pelo trabalho incita os alunos da disciplina a efetuar o caminhamento por BFS, DFS ou Caminhamento Aleatório de uma matriz de entrada com $N>=50$. Isso deve ser realizado seguindo algumas diretrizes de desenvolvimento:
-
-- A matriz estará préviamente organizada para processamento em um arquivo `input.data`.
-- O ponto inicial das três formas de caminhamento é o ponto onde se localiza o elemento $a_{00}$, ou seja, onde $i = 0, j=0$.
-- A busca se limita ao escopo de matriz alocado na memória, portanto o programa caminha somente em $a_{ij}$ para $N-1>=i>=0$ e $N-1>=j>=0$.
-- O programa deve ser escrito de modo à considerar comparações entre a execução dos 3 métodos de busca com diferentes tipos de entrada. Uma forma de facilitar essas comparações é realizando mensurações de tempo diante da execução destas funções.
-
+Observe como a BFS percorre casas adjascentes rapidamente em apenas 3 iterações. Enquanto isso a DFS foca ir em somente uma "direção" da matriz, ou seja, matemáticamente este percorreria vários vértices rapidamente, onde a distância entre eles depende de $n_{v}$ vértices vizinhos, portanto de $n_{e}-1$ arestas, afinal o percurso realizado gera um subgrafo onde todos os vértices tem grau $1$. Portanto BFS verifica vértices próximos(com arestas em comum) muito rapidamente, já o DFS pesquisa entre vértices distantes rapidamente. Com isso cada um destes é melhor para uma situação específica.
 
 <br>
 
 ## Metodologia:
+
 ### Arquivos:
-Para resolução do desafio alguns arquivos foram cridos, dentre eles: 
+
+Para resolução do desafio alguns arquivos foram criados, dentre eles: 
  - `input.data`: Um arquivo que armazena o valor de $N$, ou seja, o tamanho da matriz e os elementos que serão armazenados ali.
-
-
- <div align="center">
-<strong>Figura 5</strong> - input.data    
-<br>
-
-<img src = "./img/inputData.jpeg">
-
-<br>
-Fonte: Captura de tela feita pelo autor⁷.
-<br>
-____________________________________________
-<br>⁷Captura de tela do computador do autor.
-</div>
-<br>
-
 
 - `Makefile` : Controla a geração dos executáveis e compilação dos mesmos(FREE SOFTWARE FOUNDATION, GNU make, 2023).
 
@@ -275,13 +312,14 @@ ____________________________________________
 
 ### Funcionamento
 
- #### 1. Primeira Leitura do Arquivo
+ #### Primeira Leitura do Arquivo
   A leitura das entradas do arquivo `input.data` é realizada apenas 1 vez, em primeiro lugar o código reconhece qual a ordem da matriz presente no arquivo, isso será realizado respectivamente pelas funções _**read_size**_ e _**read_matrix**_.
 
   A função _**read_size**_ é responsável por ler a primeira linha do arquivo de entrada e retornar $N$, já _**read_matrix**_ é responsável por ler os valores do arquivo e salvar em uma matriz. 
 
- #### 2. Percorrendo a Matriz
-  Há três formas de percorrer a matriz, são elas as funções _**RAND**_, _**DFS**_ e _**BFS**_. Todas estas funções param suas iterações quando o caracter $?$ está em um elemento contido na posição presente. Além disso quando o caracter na posição atual for igual a $*$ todas as funções apagam o caminho realizado entre $a_{00}$ e $a_{ij}$ tendo $i$ e $j$ atuais como referência e reiniciam as iterações partindo de novo do elemento ou posição $a_{00}$.
+ #### Percorrendo a Matriz
+
+  Há três formas de percorrer a matriz, são elas as funções _**RAND**_, _**DFS**_ e _**BFS**_. Todas estas funções param suas iterações quando o caracter **?** está em um elemento contido na posição presente. Além disso, quando o caracter na posição atual for igual a **\***, todas as funções apagam o caminho realizado entre $a_{00}$ e $a_{ij}$ tendo $i$ e $j$ atuais como referência e reiniciam as iterações partindo de novo do elemento ou posição $a_{00}$.
 
 - Iterações na função _**DFS**_
   - A função _**DFS**_ adiciona a posição atual à uma pilha, ou seja, a casa 0,0.
@@ -302,8 +340,13 @@ ____________________________________________
     - Toda vez que uma posição é sorteada e apresenta uma posição livre para se percorrer a posição atual se torna esta posição.
     
     - Dito isto o procedimento será realizado até que o caracter $?$ seja encontrado.
+
+#### Tempo de execução
  
- #### 2.1. Casos Especiais
+O programa armazena o tempo de execução das funções de pesquisa em variáveis do `main.c` chamando a função _**clock()**_ antes e depois de da chamada de cada uma das funções. Isso permite que haja uma mensuração de complexidade considerando o ambiente de execução no momento em que o comando _**make run**_ é executado por um sistema operacional contido em uma máquina específica.
+ 
+ #### Casos Especiais
+
 O programa não trata casos especiais onde a posição inicial se encontre cercada por paredes inicialmente. Portanto o caso da imagem abaixo pode trazer problemas de execução:
 
 <div align="center">
@@ -318,67 +361,179 @@ Fonte: Construção pelo autor⁸.
 ____________________________________________
 <br>Criada usando o Canva⁸, Disponível no <a href="https://www.canva.com/design/DAFd8EjV-8w/M4fX0cOTTduzNNPJxuF73Q/edit?utm_content=DAFd8EjV-8w&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton">link</a>.
 </div>
-<br>
 
+Nos casos dos algoritmos de DFS e BFS, caso não exista um objetivo ***?***, o loop do programa acaba quando, respectivamente, a pilha e a fila acabam. Porém, no caso do algoritmo aleatório, o programa entra em um _loop_ infinito. Tal fato também ocorre quando existe um objetivo, mas este está inacessível, ou seja, cercado por paredes. Isto acontece porque o algoritmo aleatório simplesmente caminha aleatoriamente, sem rumo, até que ele chegue ao objetivo. Se ele não encontra um objetivo, ele não saí do _loop_.
+
+<br>
  
-#### 2.2. Implementação
-O programa armazena o tempo de execução das funções de pesquisa em variáveis do `main.c` chamando a função _**clock()**_ antes e depois de da chamada de cada uma das funções. Isso permite que haja uma mensuração de complexidade considerando o ambiente de execução no momento em que o comando _**make run**_ é executado por um sistema operacional contido em uma máquina específica. Diante disso dada a entrada contida na **Figura 6** temos a saída demonstrada em **Figura 7**, **Figura 8** e **Figura 9**.
+## Exemplo
 
+Ao trabalhar com uma matriz em um arquivo de entrada, geralmente há um formato específico a ser seguido para garantir a correta leitura e interpretação dos dados. Em um arquivo de entrada de texto simples, os elementos da matriz são armazenados como sequências de caracteres separadas por caracteres delimitadores. Cada linha representa uma linha da matriz, e os elementos correspondentes são separados por espaços, conforme ilustrado na tabela abaixo:
 
+<table align="center">
+    <tr>
+        <td align="center">*</td>
+        <td align="center">2</td>
+        <td align="center">3</td>
+        <td align="center">*</td>
+    </tr>
+    <tr>´
+        <td align="center">4</td>
+        <td align="center">#</td>
+        <td align="center">5</td>
+        <td align="center">6</td>
+    </tr>
+    <tr>
+        <td align="center">7</td>
+        <td align="center">#</td>
+        <td align="center">*</td>
+        <td align="center">#</td>
+    </tr>
+    <tr>
+        <td align="center">8</td>
+        <td align="center">#</td>
+        <td align="center">9</td>
+        <td align="center">?</td>
+    </tr>
+</table>
 
- <div align="center">
-<strong>Figura 7</strong> - Saída da busca aletória, tempo de execução: 17.686000 ms    
-<br>
+A fim de facilitar a explicação de como o progrmaa funciona, optou-se por utilizar uma entrada pequena. Também decidiu-se em adotar números possíveis diferentes de $1$. Com isso, é possível descrever os caminhos feitos nos três métodos, assim como observar onde o programa trocou um perigo ***\**** por ***1***.
 
-<img src = "./img/outputAleatorio.jpeg" height = "78%" width = "78%">
+### Caminhamento aleatório
 
-<br>
-Fonte: Captura de tela feita pelo autor⁸.
-<br>
-____________________________________________
-<br>Captura de tela do computador do autor.
-</div>
-<br>
+Para realizar o caminhamento aleatório, utilizou-se um loop _do while_. A cada iteração, uma direção aleatória válida é escolhida para mover. A posição é atualizada de acordo com a direção escolhida. O processo continua até que o objetivo <b>?</b> seja alcançado. Caso um inimigo <b>*</b> seja encontrado, o elemento em que o personagem se encontra volta a ser o inicial $a_{00}$, e todas as casas visitadas são esquecidas com a função _memset_. A saída do programa é mostrada a seguir:
 
- <div align="center">
-<strong>Figura 8</strong> - Saída da busca DFS, tempo de execução: 0.534000 ms    
-<br>
+<table align="center">
+    <tr>
+        <td align="center">1</td>
+        <td align="center">2</td>
+        <td align="center">3</td>
+        <td align="center">1</td>
+    </tr>
+    <tr>
+        <td align="center">4</td>
+        <td align="center">#</td>
+        <td align="center">5</td>
+        <td align="center">6</td>
+    </tr>
+    <tr>
+        <td align="center">7</td>
+        <td align="center">#</td>
+        <td align="center">1</td>
+        <td align="center">#</td>
+    </tr>
+    <tr>
+        <td align="center">8</td>
+        <td align="center">#</td>
+        <td align="center">9</td>
+        <td align="center">?</td>
+    </tr>
+</table>
 
-<img src = "./img/outputDFS.jpeg" height = "78%" width = "78%">
+O tempo de execução do exemplo foi de $0,203 ms$. É possível notar ainda que todos os perigos observados no arquivo de entrada se transformaram em $1$. Isto ocorre porque, quando o personagem encontra um perigo, além de voltar ao início, ele marca o elemento em que este perigo se encontra como um caminho possível. Durante a execução do programa, o personagem visitou todas os elementos da matriz antes de encontrar o objetivo.
 
-<br>
-Fonte: Captura de tela feita pelo autor⁹.
-<br>
-____________________________________________
-<br>Captura de tela do computador do autor.
-</div>
-<br>
+### Caminhamento DFS
 
- <div align="center">
-<strong>Figura 9</strong> - Saída da busca BFS, tempo de execução: 9.183000 ms    
-<br>
+No caminhamento DFS, o progama trabalha dando preferência às direções em uma ordem pré-estabelecida:
 
-<img src = "./img/outputBFS.jpeg" height = "78%" width = "78%">
+<ol>
+    <li>A linha de baixo;</li>
+    <li>A próxima coluna;</li>
+    <li>A linha de cima;</li>
+    <li>A coluna anterior.</li>
+</ol>
 
-<br>
-Fonte: Captura de tela feita pelo autor¹⁰.
-<br>
-____________________________________________
-<br>Captura de tela do computador do autor.
-</div>
-<br>
+O programa foi empilhando os elementos visitados, tentando encontrar o objetivo. Caso o personagem chegue a um beco sem saída, o programa começa a desempilhar a fila, colocando paredes <b>#</b> nestes elementos, para que o personagem não volte a visitá-los. O programa trabalhou com uma matriz de booleanos, fazendo com que o personagem não visite os elementos já visitados. A matriz de saída é ilustrada abaixo:
 
+<table align="center">
+    <tr>
+        <td align="center">1</td>
+        <td align="center">2</td>
+        <td align="center">3</td>
+        <td align="center">*</td>
+    </tr>
+    <tr>
+        <td align="center">#</td>
+        <td align="center">#</td>
+        <td align="center">5</td>
+        <td align="center">6</td>
+    </tr>
+    <tr>
+        <td align="center">#</td>
+        <td align="center">#</td>
+        <td align="center">1</td>
+        <td align="center">#</td>
+    </tr>
+    <tr>
+        <td align="center">#</td>
+        <td align="center">#</td>
+        <td align="center">9</td>
+        <td align="center">?</td>
+    </tr>
+</table>
 
-## Conclusão
-### Grafos-ou-Matrizes?
+Assim como no aleatório, caso o personagem encontre um perigo <b>*</b>, ele marca como caminho possível <b>1</b>, retorna ao início, zerando a matriz de booleanos, ou seja, esquece os elementos já visitados. Como é possível perceber, a primeira coluna foi marcada com paredes <b>#</b>, pois o personagem seguiu este caminho, encontrou um beco sem saída, e foi voltando até encontrar um caminho para encontrar o objetivo. Durante a execução, o personagem somente visitou o objetivo da última coluna. Todos os outros elementos, exceto as paredes, foram visitados. O tempo de execução do DFS para o arquivo de entrada foi de $0,118 ms$.
+
+### Caminhamento BFS
+
+No caminhamento BFS, o progama trabalha dando preferência às direções em uma ordem pré-estabelecida:
+
+<ol>
+    <li>A próxima coluna;</li>
+    <li>A linha de baixo;</li>
+    <li>A coluna anterior.</li>
+    <li>A linha de cima;</li>
+</ol>
+
+O programa foi descobrindo os elementos conforme a ordem citada acima, colocando-os em uma fila. Os elementos guardados na fila então começaram a ser analisados, procurando o objetivo. Assim como no DFS, o BFS também utilizou-se de uma matriz de booleanos, para que o personagem não retorne aos elementos já visitados. A matriz de saída é ilustrada abaixo:
+
+<table align="center">
+    <tr>
+        <td align="center">1</td>
+        <td align="center">2</td>
+        <td align="center">3</td>
+        <td align="center">1</td>
+    </tr>
+    <tr>
+        <td align="center">4</td>
+        <td align="center">#</td>
+        <td align="center">5</td>
+        <td align="center">6</td>
+    </tr>
+    <tr>
+        <td align="center">7</td>
+        <td align="center">#</td>
+        <td align="center">1</td>
+        <td align="center">#</td>
+    </tr>
+    <tr>
+        <td align="center">8</td>
+        <td align="center">#</td>
+        <td align="center">9</td>
+        <td align="center">?</td>
+    </tr>
+</table>
+
+Outra semelhança com o DFS, é que o BFS também trata os perigos <b>*</b> marcando como caminhos possíveis <b>1</b>, retornando ao início e zerando a matriz de booleanos. O tempo de execução do BFS foi de $0,123 ms$. Todos os elementos foram visitados durante a execução do programa.
+
+## Conclusões
+
+### Grafos ou matrizes?
+
 Como foi dito anteriormente o problema pode ser resolvido de diversas formas, uma delas é usufruindo de grafos. As relações entre vértices permitem inferências matemáticas mais plurais e complexas que as propostas aqui. Considerando que implementações realizadas aqui se restringem ao percorrimento de um espaço muito grande, a implementação de uma estrutura de dados tão complexa quanto o grafo poderia ser um custo desnecessário. Portanto os grafos não foram uma indicação nem uma escolha para solucionar o problema proposto.
 
-### Comparações Entre as Formas de Caminhamento
- Diante das diferentes entradas propostas, o número e posições dos caracteres #, *, $1$ e ? foram alterados, com isso percebemos que em casos muito raros o BFS se torna mais rápido que o DFS. Além de tudo percebemos que o caminhamento aleatório é mais lento que ambos na maioria dos casos também. Em casos onde a interrogação se aproxima das casas inicias e paredes fazem o DFS andar para a região onde o valor de $i$ dos elementos $a_{ij}$ tende a se aproximar do valor de $N$, temos o BFS mais rápido, depois normalmente o aleatório e por último o DFS por exemplo. Contúdo vale ressaltar que ainda nestes casos o DFS ganhar no percorrimento destas estruturas por muito pouco. Mais especificamente uma diferença próxima de 1 segundo.
+### Comparações entre as formas de caminhamento
 
+Diante das diferentes entradas propostas, o número e posições dos caracteres **#**, **\***, **1** e **?** foram alterados no arquivo de entrada. Com isso, percebeu-se que, em casos muito raros, o BFS se torna mais rápido que o DFS. Além disso, observou-se que o caminhamento aleatório é mais lento que ambos na maioria dos casos.
 
+Em casos onde a objetivo está próxima ao elemento inicial, com paredes bloqueando sua passagem, o DFS caminha até a região onde o valor de $i$ dos elementos $a_{ij}$ tende a se aproximar do valor de $N$. Neste caso, observou-se que o BFS é mais rápido, seguido, normalmente, do aleatório e, por último, o DFS.
+
+Cada tipo de caminhamento tem suas próprias características e é adequado para diferentes situações. O DFS é mais adequado quando se deseja explorar profundamente em um ramo antes de retroceder, enquanto o BFS é mais adequado para uma exploração ampla e para encontrar caminhos mais curtos. Já o caminhamento aleatório é mais adequado para casos em que a ordem de exploração não é relevante ou quando se deseja explorar várias possibilidades sem seguir uma estratégia específica.
+
+É importante ressaltar que o caminhamento aleatório não garante que todos os elementos da matriz sejam visitados ou que o objetivo seja alcançado. A aleatoriedade introduz incerteza no caminho percorrido e pode resultar em diferentes resultados a cada execução.
 
 ## Compilação e Execução
+
 Para compilação e execução do código é necessário que seja criado um arquivo Makefile. Para uso deste arquivo da forma correta, siga as diretrizes de execução abaixo:
 
 <table>
@@ -415,7 +570,7 @@ O código foi desenvolvido e testado no seguinte ambiente de desenvolvimento:
 <tr>
 <td align="center"><strong><i>Processador</i></strong>
 </td>
-<td align="center">Intel(R) Core(TM) i5-3340M CPU @ 2.70GHz</td>
+<td align="center">AMD Athlon(tm) 5150 APU with Radeon(tm) R3</td>
 </tr>
 <tr>
 <td align="center"><strong><i>Memória RAM</i></strong></td>
@@ -423,7 +578,7 @@ O código foi desenvolvido e testado no seguinte ambiente de desenvolvimento:
 </tr>
 <tr>
 <td align="center"><strong><i>Sistema Operacional</i></strong></td>
-<td>Debian GNU/Linux 11 (bullseye)</td>
+<td>Ubuntu 22.04.2 LTS (Jammy Jellyfish)</td>
 </tr>
 </table>
 
