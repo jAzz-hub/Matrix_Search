@@ -35,21 +35,14 @@ void print_matrix(char *mat,
     bool *vis, int mat_sz) {
   for(int i = 0; i < mat_sz; i++) {
     for(int j = 0; j < mat_sz; j++) {
-      printf("%c ", mat[mat_sz * i + j]);
+      int index = mat_sz * i + j;
+
+      if(vis[index])
+        printf(COLOR "%c " NO_COLOR, mat[index]);
+      else
+        printf("%c ", mat[index]);
     }
-    printf("| ");
-    for(int j = 0; j < mat_sz; j++) {
-      printf("%d ", vis[mat_sz * i + j]);
-    }
-    putchar('\n');
+      putchar('\n');
   }
   putchar('\n');
-}
-
-void clear_boolean(bool*vis, int mat_sz) {
-  int double_mat_sz = mat_sz * mat_sz;
-
-  for(int i = 0; i < double_mat_sz; i++) {
-   vis[i] = false;
-  }
 }

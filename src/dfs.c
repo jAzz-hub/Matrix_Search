@@ -1,13 +1,18 @@
 #include "dfs.h"
 
+static const int dirH[4] = {0, 1,  0, -1};
+static const int dirV[4] = {1, 0, -1,  0};
+
 void DFS(char *mat, bool *vis, int mat_sz) {
-  const int dH[4] = {0, 1,  0, -1};
-  const int dV[4] = {1, 0, -1,  0};
   Stack s;
 
   StackCreate(&s);
   StackPush(&s, (StackData){.x = 0, .y = 0});
  
+  if(mat[0] == '*') {
+    mat[0] = '1';
+  }
+
   while (!isStackEmpty(&s)) {
     StackData data = s.top->data;
     int index = mat_sz * data.y + data.x;
@@ -16,13 +21,13 @@ void DFS(char *mat, bool *vis, int mat_sz) {
     vis[index] = true;
  
     for (i = 0; i < 4; i++) {
-      int mX = data.x + dH[i];
-      int mY = data.y + dV[i];
+      int adjx = data.x + dirH[i];
+      int adjy = data.y + dirV[i];
 
-      index = mat_sz * mY + mX;
+      index = mat_sz * adjy + adjx;
 
-      if(mX < 0 || mX >= mat_sz
-      || mY < 0 || mY >= mat_sz
+      if(adjx < 0 || adjx >= mat_sz
+      || adjy < 0 || adjy >= mat_sz
       || vis[index]
       || mat[index] == '#') continue;
 
@@ -32,8 +37,7 @@ void DFS(char *mat, bool *vis, int mat_sz) {
       } else if(mat[index] == '*') {
         mat[index] = '1';
 
-        clear_boolean(vis, mat_sz);
-        vis[0] = true;
+        memset(vis + 1, false, mat_sz * mat_sz - 1);
 
         StackClear(&s);
         StackPush(&s, (StackData){.x = 0, .y = 0});
@@ -41,7 +45,7 @@ void DFS(char *mat, bool *vis, int mat_sz) {
         break;
       }
 
-      StackPush(&s, (StackData){.x = mX, .y = mY});
+      StackPush(&s, (StackData){.x = adjx, .y = adjy});
       break;
     }
 

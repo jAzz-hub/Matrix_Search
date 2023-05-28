@@ -1,37 +1,36 @@
 #include "Maze.h"
 #include <time.h>
 
+static const int dirH[4] = {1, 0, -1,  0};
+static const int dirV[4] = {0, 1,  0, -1};
+
 typedef struct player {
   int x, y;
 } Player;
  
 void RAND(char *mat, bool *vis, int mat_sz) {
   srand(time(NULL));
-  const int dH[4] = {1, 0, -1,  0};
-  const int dV[4] = {0, 1,  0, -1};
   Player p = (Player){.x = 0, .y = 0};
-  int mX, mY, index = 0;
-
-  vis[0] = true;
+  int adjx, adjy, index = 0;
 
   while(mat[mat_sz * p.y + p.x] != '?') {
     do {
       int direction = rand() % 4;
 
-      mX = p.x + dH[direction];
-      mY = p.y + dV[direction];
-      index = mat_sz * mY + mX;
-    } while(mX < 0 || mX >= mat_sz
-         || mY < 0 || mY >= mat_sz
+      adjx = p.x + dirH[direction];
+      adjy = p.y + dirV[direction];
+      index = mat_sz * adjy + adjx;
+    } while(adjx < 0 || adjx >= mat_sz
+         || adjy < 0 || adjy >= mat_sz
          || mat[index] == '#');
 
     if(mat[index] == '*') {
       mat[index] = '1';
-      clear_boolean(vis, mat_sz);
+      memset(vis + 1, false, mat_sz * mat_sz - 1);
       p = (Player){.x = 0, .y = 0};
     } else {
-      p = (Player){.x = mX, .y = mY};
-    }
+      p = (Player){.x = adjx, .y = adjy};
       vis[index] = true;
+    }
   }
 }

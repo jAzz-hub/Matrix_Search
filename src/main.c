@@ -4,8 +4,6 @@
 #include "random_walk.h"
 #include "bfs.h"
 #include "dfs.h"
-
-#include <time.h>
  
 int main()
 {
@@ -22,12 +20,12 @@ int main()
 
   printf("Caminhamento aleatório\n\n");
   read_matrix(mat, mat_sz);
-  clear_boolean(vis, mat_sz);
+  memset(vis, false, mat_sz * mat_sz);
   RAND(mat, vis, mat_sz);
   print_matrix(mat, vis, mat_sz);
 
   end = clock();
-  printf("Tempo de execução : %f ms\n",
+  printf("Tempo de execução : %.3f ms\n",
       ((double)(end - start))/CLOCKS_PER_SEC*1000);
 
 
@@ -35,12 +33,12 @@ int main()
 
   printf("\nCaminhamento DFS\n\n");
   read_matrix(mat, mat_sz);
-  clear_boolean(vis, mat_sz);
+  memset(vis, false, mat_sz * mat_sz);
   DFS(mat, vis, mat_sz);
   print_matrix(mat, vis, mat_sz);
 
   end = clock();
-  printf("Tempo de execução : %f ms\n",
+  printf("Tempo de execução : %.3f ms\n",
       ((double)(end - start))/CLOCKS_PER_SEC*1000);
 
 
@@ -48,12 +46,12 @@ int main()
 
   printf("\nCaminhamento BFS\n\n");
   read_matrix(mat, mat_sz);
-  clear_boolean(vis, mat_sz);
+  memset(vis, false, mat_sz * mat_sz);
   BFS(mat, vis, mat_sz);
   print_matrix(mat, vis, mat_sz);
 
   end = clock();
-  printf("Tempo de execução : %f ms\n",
+  printf("Tempo de execução : %.3f ms\n",
       ((double)(end - start))/CLOCKS_PER_SEC*1000);
 
   free(mat);
