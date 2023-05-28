@@ -377,7 +377,7 @@ Ao trabalhar com uma matriz em um arquivo de entrada, geralmente há um formato 
         <td align="center">3</td>
         <td align="center">*</td>
     </tr>
-    <tr>´
+    <tr>
         <td align="center">4</td>
         <td align="center">#</td>
         <td align="center">5</td>
@@ -537,49 +537,45 @@ Cada tipo de caminhamento tem suas próprias características e é adequado para
 Para compilação e execução do código é necessário que seja criado um arquivo Makefile. Para uso deste arquivo da forma correta, siga as diretrizes de execução abaixo:
 
 <table>
-
-<tr>
-<td colspan = '1'><strong>Comandos</strong></td>
-<td align = "center" colspan = '1'><strong>Funções</strong></td>
-</tr>
-
-<tr>
-<td align="center"><strong><i>make clean</i></strong>
-</td>
-<td align="center">Apaga a última compilação realizada contida na pasta build</td>
-</tr>
-<tr>
-<td align="center"><strong><i>make</i></strong></td>
-<td align="center">Executa a compilação do programa utilizando o gcc, e o resultado vai para a pasta build</td>
-</tr>
-<tr>
-<td align="center"><strong><i>make run</i></strong></td>
-<td align="center">Executa o programa da pasta build após a realização da compilação</td>
-</tr>
+  <tr>
+    <td colspan = '1'><strong>Comandos</strong></td>
+    <td align = "center" colspan = '1'><strong>Funções</strong></td>
+  </tr>
+  <tr>
+    <td align="center"><strong><i>make clean</i></strong></td>
+    <td align="center">Apaga a última compilação realizada contida na pasta build</td>
+  </tr>
+  <tr>
+    <td align="center"><strong><i>make</i></strong></td>
+    <td align="center">Executa a compilação do programa utilizando o gcc, e o resultado vai para a pasta build</td>
+  </tr>
+  <tr>
+    <td align="center"><strong><i>make run</i></strong></td>
+    <td align="center">Executa o programa da pasta build após a realização da compilação</td>
+  </tr>
 </table>
 
 ## Ambiente de Desenvolvimento:
 O código foi desenvolvido e testado no seguinte ambiente de desenvolvimento:
 
 <table>
-<tr>
-<td colspan = '1' align="center"><strong>Peças</strong></td>
-<td align = "center" colspan = '1'><strong>Especificações</strong></td>
-</tr>
+  <tr>
+    <td colspan = '1' align="center"><strong>Peças</strong></td>
+    <td align = "center" colspan = '1'><strong>Especificações</strong></td>
+  </tr>
 
-<tr>
-<td align="center"><strong><i>Processador</i></strong>
-</td>
-<td align="center">AMD Athlon(tm) 5150 APU with Radeon(tm) R3</td>
-</tr>
-<tr>
-<td align="center"><strong><i>Memória RAM</i></strong></td>
-<td align="center">8 GB </td>
-</tr>
-<tr>
-<td align="center"><strong><i>Sistema Operacional</i></strong></td>
-<td>Ubuntu 22.04.2 LTS (Jammy Jellyfish)</td>
-</tr>
+  <tr>
+    <td align="center"><strong><i>Processador</i></strong></td>
+    <td align="center">AMD Athlon(tm) 5150 APU with Radeon(tm) R3</td>
+  </tr>
+  <tr>
+    <td align="center"><strong><i>Memória RAM</i></strong></td>
+    <td align="center">8 GB </td>
+  </tr>
+  <tr>
+    <td align="center"><strong><i>Sistema Operacional</i></strong></td>
+    <td align="center">Ubuntu 22.04.2 LTS (Jammy Jellyfish)</td>
+  </tr>
 </table>
 
 
