@@ -546,15 +546,15 @@ Para compilação e execução do código é necessário que seja criado um arqu
 <tr>
 <td align="center"><strong><i>make clean</i></strong>
 </td>
-<td align="center">Deleta o arquivo executável e todos os arquivos objetos do diretório. (FREE SOFTWARE FOUNDATION, GNU make, 2023)</td>
+<td align="center">Apaga a última compilação realizada contida na pasta build</td>
 </tr>
 <tr>
 <td align="center"><strong><i>make</i></strong></td>
-<td align="center">Compila diferentes partes do programa através do g++ e cria um arquivo executável na pasta build. </td>
+<td align="center">Executa a compilação do programa utilizando o gcc, e o resultado vai para a pasta build</td>
 </tr>
 <tr>
 <td align="center"><strong><i>make run</i></strong></td>
-<td align="center">Executa o programa da pasta build após a realização da compilação. (PIRES, MICHEL, 2023)</td>
+<td align="center">Executa o programa da pasta build após a realização da compilação</td>
 </tr>
 </table>
 
